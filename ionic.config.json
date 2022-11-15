@@ -1,0 +1,7 @@
+{
+  "name": "facturador",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
