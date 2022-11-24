@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registrate</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-card>
+
+
+
+          <form [formGroup]="registroForm">
+
+            <ion-list>
+              <ion-radio-group value="PE" formControlName="radioTipo">
+                <ion-list-header>
+                  <ion-label>Tipo de registro</ion-label>
+                </ion-list-header>
+                <ion-row>
+                  <ion-col>
+                    <ion-item>
+                      Persona
+                      <ion-radio slot="start" value="PE"></ion-radio>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col>
+                    <ion-item>
+                      Empresa
+                      <ion-radio slot="start" value="EM"></ion-radio>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-radio-group>
+            </ion-list>
+
+            <ion-item>
+              <ion-label position="floating">Canton</ion-label>
+              <ion-select mode="ios" placeholder="Seleccione uno"
+                formControlName="cmbCanton"
+                (ionChange)="this.getParroquia($event)">
+                <ion-select-option *ngFor="let item of lstCaton"
+                  value="{{item.idCanton}}">{{item.cantNombre}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Parroquia</ion-label>
+              <ion-select mode="ios" placeholder="Seleccione uno"
+                formControlName="cmbParroquia">
+                <ion-select-option *ngFor="let item of lstParroquia"
+                  value="{{item.idParroquia}}">{{item.parrNombre}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item>
+              <ion-input formControlName="regnombre" placeholder="Correo">
+              </ion-input>
+            </ion-item>
+
+
+            <ion-item>
+              <ion-input formControlName="regpassword" placeholder="Contraseña"
+                type="password"> </ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input formControlName="regpasswordRepet" placeholder="Repetir
+                contraseña" type="password">
+              </ion-input>
+            </ion-item>
+
+          </form>
+
+          <ion-button expand="block" (click)="this.registrarusuario()"
+            [disabled]="!registroForm.valid">Registrar</ion-button>
+          <ion-button expand="block" color="danger"
+            (click)="this.regresarlogin()">Cancelar</ion-button>
+
+        </ion-card>
+      </ion-col>
+
+    </ion-row>
+
+
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Lista Facturas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item *ngFor="let usu of listafacturas">
+
+
+
+    <ion-card style=" width: 100% !important;">
+      <ion-item lines="inset">
+        <h3 style="font-weight:bold"> {{usu.idCliente.cliNombre}}</h3>
+
+      </ion-item>
+
+
+      <!--<img src={{item.usuFotografia}} alt="ion">-->
+      <ion-card-header>
+        <ion-row>
+
+        <h3 style="font-weight:bold"> {{usu.idCliente.cliNombre}}</h3>
+      </ion-row>
+        <ion-row>
+
+          <h3 style="font-weight:bold"> Factura Nº: {{usu.facNumeroText}}</h3>
+
+
+        </ion-row>
+
+      </ion-card-header>
+      <ion-card-content>
+        <p> Clave de acceso: {{usu.facClaveAcceso}}</p>
+        {{usu.idCliente.idTipoIdentificacion.tidNombre}} :
+        {{usu.idCliente.cliCedula}}
+        
+        <ion-row>
+          <h4 style="font-weight:bold">  Correo: </h4> {{usu.idCliente.cliCorreo}}
+        </ion-row>
+        <ion-row>
+
+          <h4 style="font-weight:bold"> Fecha emisión:  </h4> {{usu.facFecha}}
+        </ion-row>
+        <ion-row>
+          <h4 style="font-weight:bold">   Fecha autorización:  </h4> {{usu.facFechaAutorizacion | date: 'yyyy-MM-dd'}} 
+        </ion-row>
+        <ion-row>
+          <h4 style="font-weight:bold">    Estado:  </h4> {{usu.estadosri}}
+        </ion-row>
+
+        <ion-row>
+          <ion-col center text-center>
+          
+          </ion-col>
+          <ion-col style="text-align: end;" text-center>
+            <h4 style="font-weight:bold">    TOTAL FACTURA:  </h4> <h1>{{usu.facTotal}}</h1>
+          </ion-col>
+
+        </ion-row>
+       
+      </ion-card-content>
+
+      <ion-footer>
+        <ion-row>
+
+          <ion-col center text-center>
+            <ion-button target="_blank" expand="block" color="success">
+              <ion-icon name="mail"></ion-icon>
+              <div> Enviar mail</div>
+            </ion-button>
+          </ion-col>
+          <ion-col center text-center>
+
+            <ion-button target="_blank" expand="block">
+              <ion-icon name="send"></ion-icon>
+              <div> Autorizar</div>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-footer>
+    </ion-card>
+
+
+  </ion-item>
+</ion-content>

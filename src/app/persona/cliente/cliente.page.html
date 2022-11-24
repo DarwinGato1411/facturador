@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mis clientes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item *ngFor="let usu of listaClientes">
+
+
+
+    <ion-card style=" width: 100% !important;">
+      <ion-item lines="inset">
+
+        <ion-text>
+
+          <p>
+            Nombre: <ion-card-title>{{usu.cliNombre}}</ion-card-title>
+          </p>
+        </ion-text>
+      </ion-item>
+
+
+      <!--<img src={{item.usuFotografia}} alt="ion">-->
+      <ion-card-header>
+        Direccion: {{usu.cliDireccion}}
+      </ion-card-header>
+      <ion-card-content>
+        Correo: {{usu.cliCorreo}}
+        <ion-row>
+          <ion-col center text-center>
+            {{usu.idTipoIdentificacion.tidNombre}}
+          </ion-col>
+          <ion-col center text-center>
+            {{usu.cliCedula}}
+          </ion-col>
+
+        </ion-row>
+      </ion-card-content>
+
+      <ion-footer>
+        <ion-row>
+
+          <ion-col center text-center>
+            <!-- <ion-button expand="block" color="primary" (click)="modificar(item.turTourvirtual)">              
+              <ion-icon name="information-circle-outline"></ion-icon>
+              <div>Editar</div>
+            </ion-button> -->
+          </ion-col>
+          <ion-col center text-center>
+
+            <ion-button  target="_blank" expand="block" >
+              <ion-icon name="pencil"></ion-icon>
+              <div> Editar</div>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-footer>
+    </ion-card>
+
+
+  </ion-item>
+</ion-content>

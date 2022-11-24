@@ -1,0 +1,86 @@
+<ion-header >
+
+
+  <ion-row >
+  
+  <ion-toolbar color="light">
+    <ion-buttons slot="primary">
+      <ion-button (click)="buscar()" color="primary">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-searchbar showCancelButton="focus" [(ngModel)]="busquedaSearch" placeholder="Buscar "
+      (ionChange)=upperCase(busquedaSearch)></ion-searchbar>
+  </ion-toolbar>
+
+</ion-row>
+
+
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+
+  <ion-item *ngFor="let item of listaTurismo">
+    <ion-card>
+      <ion-item lines="inset">
+    
+        <ion-text>
+
+          <p>
+            {{item.idUsuario.ubicacion}}
+          </p>
+        </ion-text>
+      </ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">            
+            <img src={{item.turImagenServlet}} >
+          </ion-col>
+          
+          <ion-col size="8">
+            <h6 style="color: blue; size: 7px;">Aforo: {{item.turAforo}}</h6>        
+          </ion-col>
+
+          <ion-col size="4">  
+
+            <ion-tab-button (click)="vermapa(item.turLatitud,item.turLongitud)" color="primary">
+              <ion-icon name="locate-outline" color="primary"></ion-icon>
+               <ion-label color="primary">Ver mapa</ion-label> 
+               <ion-badge color="danger">Mapa</ion-badge>
+             </ion-tab-button>           
+          </ion-col>
+       
+        </ion-row>
+      </ion-grid>
+
+      <!--<img src={{item.usuFotografia}} alt="ion">-->
+      <ion-card-header>
+        <ion-card-title>{{item.turNombre}} - {{item.idUsuario.usuWhatsapp}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        {{item.turDescripcion}}
+      </ion-card-content>
+
+      <ion-footer>
+        <ion-row>
+          
+          <ion-col center text-center >
+            <ion-button expand="block" color="primary" (click)="tourvirtual(item.turTourvirtual)">              
+              <ion-icon name="information-circle-outline"></ion-icon>
+              <div>Tour Virtual</div>
+            </ion-button>
+          </ion-col>
+          <ion-col center text-center >
+           
+            <ion-button  href="https://api.whatsapp.com/send?phone=+5930993530018&text=Hola" target="_blank" expand="block" color="success">
+              <ion-icon  name="logo-whatsapp" ></ion-icon>
+              <div> Contactar</div>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-footer>
+    </ion-card>
+
+  </ion-item>
+</ion-content>

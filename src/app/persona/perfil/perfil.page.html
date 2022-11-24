@@ -1,0 +1,104 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mi perfil</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabprincipal/login"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-card>
+
+    
+          
+          <form [formGroup]="registroForm">
+            <ion-item>
+              <ion-label color="primary">{{tipocuenta}}</ion-label>
+            </ion-item>
+           <!--<ion-list>
+              <ion-radio-group value="PE"  formControlName="radioTipoper">
+                <ion-list-header>
+                  <ion-label>Tipo de registro</ion-label>
+                </ion-list-header>
+                <ion-row>
+                  <ion-col>
+                    <ion-item>
+                      Persona
+                      <ion-radio slot="start" value="PE"></ion-radio>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col>
+                    <ion-item>
+                      Empresa
+                      <ion-radio slot="start" value="EM"></ion-radio>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-radio-group>
+            </ion-list>-->
+            <!-- <ion-item>
+              <ion-label position="floating">Canton</ion-label>
+              <ion-select mode="ios" placeholder="Seleccione uno" formControlName="cmbCantonper" (ionChange)="this.cosultarparroquias($event)">
+                <ion-select-option *ngFor="let item of this.lstCaton" value="{{item.idCanton}}">{{item.cantNombre}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Parroquia</ion-label>
+              <ion-select mode="ios" placeholder="Seleccione uno" formControlName="cmbParroquiaper" >
+                <ion-select-option *ngFor="let item of lstParroquia" value="{{item.idParroquia}}">{{item.parrNombre}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Actividad</ion-label>
+              <ion-select mode="ios" placeholder="Seleccione su actividad" formControlName="cmbActividad" >
+                <ion-select-option *ngFor="let item of lstActividades" value="{{item.idTipoActividad}}">{{item.taNombre}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item> -->
+
+            <ion-item>
+              <ion-input formControlName="nombreperfil" placeholder="Nombre completo"> </ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input formControlName="regnombreper" placeholder="Correo"> </ion-input>
+            </ion-item>
+
+            <!-- <ion-item>
+              <ion-input formControlName="whatsappper" placeholder="Telefono"> </ion-input>
+            </ion-item>
+            
+            <ion-item>
+              <ion-input formControlName="paginweb" placeholder="Pagina web"> </ion-input>
+            </ion-item> -->
+
+            <ion-item>
+              <ion-input formControlName="regpasswordper" placeholder="Contraseña" type="password" show-hide-input> </ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input formControlName="regpasswordRepetper" placeholder="Repetir contraseña" type="password" show-hide-input>
+              </ion-input>
+            </ion-item>
+
+                  
+          </form>
+
+          <ion-button expand="block" (click)="this.actualizarusuario()" [disabled]="!registroForm.valid">Guardar</ion-button>          
+
+        </ion-card>
+      </ion-col>
+
+    </ion-row>
+
+
+  </ion-grid>
+</ion-content>
