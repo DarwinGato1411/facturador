@@ -19,6 +19,9 @@ export class BuscarclientePage implements OnInit {
     private cnx: ConeccionapiService) {
     
       this.buscar();
+      
+
+      
 
   }
 
