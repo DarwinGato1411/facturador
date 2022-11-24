@@ -1,81 +1,63 @@
-<ion-header [translucent]="true">
-
-
+<ion-header>
   <ion-toolbar>
-    <ion-buttons slot="primary">
-      <ion-button (click)="buscar()" color="primary">
-        <ion-icon slot="icon-only" name="search"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-searchbar showCancelButton="focus" [(ngModel)]="busquedaSearch" placeholder="Buscar "
-      (ionChange)=upperCase(busquedaSearch)></ion-searchbar>
+    <ion-title>Mis clientes</ion-title>
   </ion-toolbar>
-
-
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content>
+  <ion-item *ngFor="let usu of listaClientes">
 
-  <ion-item *ngFor="let item of listaProductos">
-    <ion-card>
+
+
+    <ion-card style=" width: 100% !important;">
       <ion-item lines="inset">
-        <ion-avatar slot="start">
-          <img src="../../assets/imagenes/avatar.png">
-        </ion-avatar>
+
         <ion-text>
 
           <p>
-            {{item.ubicacion}}
+            Nombre: <ion-card-title>{{usu.cliNombre}}</ion-card-title>
           </p>
         </ion-text>
       </ion-item>
-      <ion-grid>
-        <ion-row>
-          <ion-col size="8">
-            <p>{{item.prodNombre}}</p>
-            <p>CODIGO: {{item.prodCodigo}}</p>
-          </ion-col>
-          <ion-col>
-            <h1 style="color: blue;">${{item.pordCostoVentaFinal}}</h1>
-          </ion-col>
-
-        </ion-row>
-      </ion-grid>
-
-
 
 
       <!--<img src={{item.usuFotografia}} alt="ion">-->
       <ion-card-header>
-        <ion-card-title>{{item.idUsuario.usuNombre}} ({{item.idUsuario.usuWhatsapp}})</ion-card-title>
+        Direccion: {{usu.cliDireccion}}
       </ion-card-header>
       <ion-card-content>
-        {{item.prodDescripcion}}
+        Correo: {{usu.cliCorreo}}
+        <ion-row>
+          <ion-col center text-center>
+            {{usu.idTipoIdentificacion.tidNombre}}
+          </ion-col>
+          <ion-col center text-center>
+            {{usu.cliCedula}}
+          </ion-col>
+
+        </ion-row>
       </ion-card-content>
 
       <ion-footer>
         <ion-row>
+
           <ion-col center text-center>
-            <button>
-              <ion-icon name="star-outline"></ion-icon>
-              <div>Calificar</div>
-            </button>
+            <!-- <ion-button expand="block" color="primary" (click)="modificar(item.turTourvirtual)">              
+              <ion-icon name="information-circle-outline"></ion-icon>
+              <div>Editar</div>
+            </ion-button> -->
           </ion-col>
           <ion-col center text-center>
-            <button>
-              <ion-icon name="mail-outline"></ion-icon>
-              <div>Mensaje</div>
-            </button>
-          </ion-col>
-          <ion-col center text-center>
-            <button>
-              <ion-icon name="logo-whatsapp"></ion-icon>
-              <div>Contactar</div>
-            </button>
+            <ion-button target="_blank" expand="block" (click)="crearFactura()">
+              <ion-icon name="pencil"></ion-icon>
+              <div> Crear factura </div>
+            </ion-button>
+            
           </ion-col>
         </ion-row>
       </ion-footer>
     </ion-card>
+
 
   </ion-item>
 </ion-content>

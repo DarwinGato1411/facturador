@@ -11,7 +11,7 @@ import { ConeccionapiService } from 'src/app/coneccionapi.service';
 })
 export class FacturarPage implements OnInit {
 
-  listaClientes;
+
   codTipoambiente;
   descripcion = "";
   clienteFacturar;
@@ -26,43 +26,14 @@ export class FacturarPage implements OnInit {
     private cnx: ConeccionapiService) { 
     this.codTipoambiente = localStorage.getItem("codTipoambiente");
     console.log("this.codTipoambiente",this.codTipoambiente)
-    this.buscarclientes(this.descripcion, this.codTipoambiente)
+    
 this.buscarproducto(this.descripcion, this.codTipoambiente)
 
   }
 
   ngOnInit() {
   }
-/*OBTENEMOS LOS DATOS DEL API REST*/
-async buscarclientes(descripcion, codTipoambiente) {
 
-  /*const loading = await this.loadingController.create({
-    message: 'Verificando',
-  });
-  loading.present();*/
-  //
-
-  this.cnx.buscarclientes(descripcion,codTipoambiente).subscribe(
-    (ok: any) => {
-
-      this.listaClientes = ok;
-      
-    //  loading.dismiss();
-
-
-      console.log(ok);
-      //   this.router.navigateByUrl('tabprincipal');
-    },
-    error => {
-     // loading.dismiss();
-      console.log(JSON.stringify(error));
-      alert(JSON.stringify(error));
-      this.presentAlert('Error de datos ....');
-    }
-
-  );
-
-}
 
 async presentAlert(mensaje) {
   const alert = await this.alertController.create({
@@ -77,18 +48,6 @@ async presentAlert(mensaje) {
 
 
 
-handleChange(event) {
-  const query = event.target.value.toUpperCase();
-  this.buscarclientes(query, this.codTipoambiente)
-  //this.results = this.data.filter(d => d.toLowerCase().indexOf(query) > -1);
-  
-}
-
-seleccion(item){
-  console.log('SELECCION',JSON.stringify(item));
-  this.clienteFacturar=item;
-  this.clienteSelectedMostrar=this.clienteFacturar.cliCedula+' - '+this.clienteFacturar.cliNombre ;
-}
 
 
 /*PRODUCTOS */

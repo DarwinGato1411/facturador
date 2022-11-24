@@ -18,7 +18,16 @@ const routes: Routes = [
             ]
           },
           {
-            path: 'facturar',
+            path: 'iniciofactura',
+            children: [
+              {
+                path: '',
+                loadChildren: () => import('../../factura/buscarcliente/buscarcliente.module').then(m => m.BuscarclientePageModule)
+              }
+            ]
+          },
+          {
+            path: 'crearfactura',
             children: [
               {
                 path: '',
@@ -37,7 +46,7 @@ const routes: Routes = [
           },
           {
             path: '',
-            redirectTo: 'facturar',
+            redirectTo: 'iniciofactura',
             pathMatch: 'full'
           },
           {

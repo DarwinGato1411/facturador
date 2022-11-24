@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { ConeccionapiService } from 'src/app/coneccionapi.service';
 
@@ -8,64 +9,44 @@ import { ConeccionapiService } from 'src/app/coneccionapi.service';
   styleUrls: ['./buscarcliente.page.scss'],
 })
 export class BuscarclientePage implements OnInit {
-
- 
-  busquedaSearch = '';
+  listaClientes;
   codTipoambiente;
-  listaProductos;
+  descripcion = "";
 
   constructor(public alertController: AlertController,
     private loadingController: LoadingController,
-    private cnx: ConeccionapiService) {
-    
-      this.buscar();
-      
-
-      
+    private cnx: ConeccionapiService,
+    private router: Router) { 
+    this.codTipoambiente = localStorage.getItem("codTipoambiente");
+    console.log("this.codTipoambiente",this.codTipoambiente)
+    this.buscarclientes(this.descripcion, this.codTipoambiente)
 
   }
 
   ngOnInit() {
-    this.codTipoambiente = localStorage.getItem("codTipoambiente");
-    console.log("this.codTipoambiente",this.codTipoambiente)
   }
 
-  buscar() {
-    console.log(this.busquedaSearch)
+   /*OBTENEMOS LOS DATOS DEL API REST*/
+   async buscarclientes(descripcion, codTipoambiente) {
 
-
-    console.log('Ejecuta')
-    console.log(this.busquedaSearch)
-    this.obtenerProductos(this.busquedaSearch,this.codTipoambiente);
-
-
-  }
-  upperCase(buscar: any) {
-    this.busquedaSearch = buscar.toUpperCase();
-
-  }
-
-  /*OBTENEMOS LOS DATOS DEL API REST*/
-  async obtenerProductos(descripcion,codTipoambiente) {
-
-    const loading = await this.loadingController.create({
+    /*const loading = await this.loadingController.create({
       message: 'Verificando',
     });
-    loading.present();
+    loading.present();*/
     //
 
-    this.cnx.buscarproductos(descripcion,codTipoambiente).subscribe(
+    this.cnx.buscarclientes(descripcion,codTipoambiente).subscribe(
       (ok: any) => {
 
-        this.listaProductos = ok;
-        loading.dismiss();
+        this.listaClientes = ok;
+      //  loading.dismiss();
 
 
         console.log(ok);
         //   this.router.navigateByUrl('tabprincipal');
       },
       error => {
-        loading.dismiss();
+       // loading.dismiss();
         console.log(JSON.stringify(error));
         alert(JSON.stringify(error));
         this.presentAlert('Error de datos ....');
@@ -84,6 +65,11 @@ export class BuscarclientePage implements OnInit {
     });
 
     await alert.present();
+  }
+
+   crearFactura(){
+    console.log('ingresa gggs')
+    this.router.navigateByUrl('facturar');
   }
 
 }

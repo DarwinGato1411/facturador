@@ -12,66 +12,7 @@
 
 
   
-  <ion-searchbar showCancelButton="focus" [debounce]="1000" (ionChange)="handleChange($event)"
-    placeholder="Buscar un cliente "></ion-searchbar>
-  <ion-content style="height: 300px;" [scrollEvents]="true">
-
-
-    <ion-item *ngFor="let item of listaClientes ">
-
-
-
-      <ion-card style=" width: 100% !important;">
-
-
-
-        <!--<img src={{item.usuFotografia}} alt="ion">-->
-        <ion-card-header>
-          {{item.cliNombre}}
-        </ion-card-header>
-        <ion-card-content>
-
-          <ion-row>
-            <ion-col center text-center>
-              {{item.idTipoIdentificacion.tidNombre}}
-            </ion-col>
-            <ion-col center text-center>
-              {{item.cliCedula}}
-            </ion-col>
-
-          </ion-row>
-        </ion-card-content>
-
-        <ion-footer>
-          <ion-row>
-
-            <ion-col center text-center>
-              <!-- <ion-button expand="block" color="primary" (click)="modificar(item.turTourvirtual)">              
-                  <ion-icon name="information-circle-outline"></ion-icon>
-                  <div>Editar</div>
-                </ion-button> -->
-            </ion-col>
-            <ion-col center text-center>
-
-              <ion-button target="_blank" expand="block" (click)="seleccion(item)">
-                <ion-icon name="chevron-forward-circle-outline"></ion-icon>
-                <div> Seleccionar</div>
-              </ion-button>
-            </ion-col>
-          </ion-row>
-        </ion-footer>
-      </ion-card>
-
-
-    </ion-item>
-
-
-  </ion-content>
-  <ion-item>
-    <ion-text color="success" style="margin-left: 10px;">
-      Seleccionado: {{clienteSelectedMostrar}}
-    </ion-text>
-  </ion-item>
+  
 
   <ion-searchbar showCancelButton="focus" [debounce]="1000" (ionChange)="handleChangeProd($event)"
     placeholder="Buscar un producto "></ion-searchbar>
@@ -115,7 +56,7 @@
             </ion-col>
             <ion-col center text-center>
 
-              <ion-button target="_blank" expand="block" (click)="seleccion(item)">
+              <ion-button target="_blank" expand="block" >
                 <ion-icon name="chevron-forward-circle-outline"></ion-icon>
                 <div> Agregar </div>
               </ion-button>
