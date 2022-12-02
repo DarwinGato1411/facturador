@@ -89,13 +89,17 @@ const routes: Routes = [
     loadChildren: () => import('./factura/listafactura/listafactura.module').then( m => m.ListafacturaPageModule)
   },
   {
-    path: 'facturar',
+    path: 'facturar/:usuario',
     loadChildren: () => import('./factura/facturar/facturar.module').then( m => m.FacturarPageModule)
   },
   {
     path: 'buscarcliente',
     loadChildren: () => import('./factura/buscarcliente/buscarcliente.module').then( m => m.BuscarclientePageModule)
+  },  {
+    path: 'configuracion',
+    loadChildren: () => import('./usuario/configuracion/configuracion.module').then( m => m.ConfiguracionPageModule)
   },
+
 ];
 
 @NgModule({

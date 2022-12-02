@@ -7,7 +7,6 @@ const routes: Routes = [
     path: '',
     component: PrincipalPage,
     children: [
-
           {
             path: 'listafactura',
             children: [

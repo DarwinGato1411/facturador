@@ -1,0 +1,59 @@
+.footer {
+    background-color: white;
+    border-radius: 20px 20px 0 0;
+    color: black;
+    height: 10%;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+
+    .total{
+        display: grid;
+        .tl, .tlN{
+            text-align: center;
+            width: 100%;
+        }
+    }
+    ion-button {
+        background-color: #6273ab;
+        color: white;
+    }
+}
+
+.contenedorCarrito{
+    .btnCancelar{
+        background-color: red;
+        color: white;
+        padding: 10px;
+        border: 15px;
+        border-radius: 20px;
+    }
+    .contenedorProductos{
+        .itemDinero{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+}
+
+.contenedorProducto{
+    border-radius: 20px;
+    padding: 10px;
+    
+    .detallesProducto{
+        margin-top: 10px;
+        width: 100%;
+        display: grid;
+        gap:10px;
+        grid-template-columns: repeat(3,1fr);
+        .item{
+           display: grid;
+           span{
+            width: 100%;
+            
+            
+           }
+        }
+    }
+}

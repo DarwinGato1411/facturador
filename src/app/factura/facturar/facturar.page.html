@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Emitir factura</ion-title>
+    <ion-title>Emitiendo factura para: {{usuario.cliNombre}}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="tabprincipal/login"></ion-back-button>
     </ion-buttons>
@@ -11,62 +11,28 @@
 
 
 
-  
-  
-
   <ion-searchbar showCancelButton="focus" [debounce]="1000" (ionChange)="handleChangeProd($event)"
     placeholder="Buscar un producto "></ion-searchbar>
 
-  <ion-content style="height: 150px;" [scrollEvents]="true">
+  <ion-content class="" style="height: 150px;" [scrollEvents]="true">
 
 
-    <ion-item *ngFor="let item of listaproductos">
+    <div class="contenedorProducto" *ngFor="let item of listaproductos">
+      <div class="detallesProducto">
+        <div class="item">
+          <span>{{item.prodNombre}}</span>
+        </div>
+        <div class="item">
+          <span>${{item.pordCostoVentaFinal}}</span>
+        </div>
+        <ion-button target="_blank" expand="block">
+          <ion-icon name="chevron-forward-circle-outline"></ion-icon>
+          <div (click)="agregarCarrito(item)"> Agregar </div>
+        </ion-button>
+      </div>
 
 
-
-      <ion-card style=" width: 100% !important;">
-
-
-
-        <!--<img src={{item.usuFotografia}} alt="ion">-->
-        <ion-card-header>
-          {{item.prodNombre}}
-        </ion-card-header>
-        <ion-card-content>
-
-          <ion-row>
-            <ion-col center text-center>
-              {{item.prodCodigo}}
-            </ion-col>
-            <ion-col center text-center>
-              {{item.pordCostoVentaFinal}}
-            </ion-col>
-
-          </ion-row>
-        </ion-card-content>
-
-        <ion-footer>
-          <ion-row>
-
-            <ion-col center text-center>
-              <!-- <ion-button expand="block" color="primary" (click)="modificar(item.turTourvirtual)">              
-                  <ion-icon name="information-circle-outline"></ion-icon>
-                  <div>Editar</div>
-                </ion-button> -->
-            </ion-col>
-            <ion-col center text-center>
-
-              <ion-button target="_blank" expand="block" >
-                <ion-icon name="chevron-forward-circle-outline"></ion-icon>
-                <div> Agregar </div>
-              </ion-button>
-            </ion-col>
-          </ion-row>
-        </ion-footer>
-      </ion-card>
-
-
-    </ion-item>
+    </div>
 
 
   </ion-content>
@@ -78,25 +44,50 @@
     </ion-text>
   </ion-item>
 
-  <ion-content style="height: 500px;" [scrollEvents]="true">
+  <ion-content class="contenedorCarrito" style="height: 500px;" [scrollEvents]="true">
 
     <ion-grid>
-      <ion-row  >
-        <ion-col><ion-input value="Cantidad" ></ion-input></ion-col>
-        <ion-col><ion-input value="Descripcion"></ion-input></ion-col>
-        <ion-col><ion-input value="Precio" ></ion-input></ion-col>
+      <ion-row>
+        <ion-col>
+          <ion-input value="Cantidad"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-input value="Descripcion"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-input value="Precio"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-input value="Total"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-input value="accion"></ion-input>
+        </ion-col>
       </ion-row>
-      <ion-row  *ngFor="let item of listaproductos">
-        <ion-col><ion-input value={{item.prodCodigo}} ></ion-input></ion-col>
-        <ion-col><ion-input value={{item.prodNombre}}></ion-input></ion-col>
-        <ion-col><ion-input value={{item.pordCostoVentaFinal}} ></ion-input></ion-col>
+      <ion-row class="contenedorProductos" *ngFor="let item of carritoProducto">
+        <ion-col>
+          <ion-input (input)="totalProductoCalcularCantidad($event.target.value,item)" value={{item.detCantidad}}>
+          </ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-input value={{item.prodNombre}}></ion-input>
+        </ion-col>
+        <ion-col class="itemDinero">
+          <span>$</span>
+          <ion-input type="number" (input)="totalProductoCalcularPrecio($event.target.value,item)"
+            value={{item.precioNuevo}}></ion-input>
+        </ion-col>
+        <ion-col class="itemDinero">
+          <span>$</span>
+          <ion-input value="{{item.totalPagarPorProducto}}"></ion-input>
+        </ion-col>
+        <ion-col>
+          <button type="number" (click)="eliminarProducto(item)" class="btnCancelar">Eliminar</button>
+        </ion-col>
       </ion-row>
     </ion-grid>
-    <ion-item >
+    <ion-item>
 
-
-
-      
 
     </ion-item>
 
@@ -104,3 +95,11 @@
   </ion-content>
 
 </ion-content>
+
+<ion-footer class="footer" slot="fixed">
+  <div class="total">
+    <span class="tl">Total:</span>
+    <span class="tlN">${{total}}</span>
+  </div>
+  <ion-button (click)="facturar()">Facturar</ion-button>
+</ion-footer>

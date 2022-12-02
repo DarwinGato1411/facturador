@@ -20,7 +20,6 @@ export class BuscarclientePage implements OnInit {
     this.codTipoambiente = localStorage.getItem("codTipoambiente");
     console.log("this.codTipoambiente",this.codTipoambiente)
     this.buscarclientes(this.descripcion, this.codTipoambiente)
-
   }
 
   ngOnInit() {
@@ -67,9 +66,10 @@ export class BuscarclientePage implements OnInit {
     await alert.present();
   }
 
-   crearFactura(){
-    console.log('ingresa gggs')
-    this.router.navigateByUrl('facturar');
+   crearFactura(usu){
+    localStorage.setItem("usuario",JSON.stringify(usu))
+   
+    this.router.navigateByUrl(`facturar/qwe`);
   }
 
 }

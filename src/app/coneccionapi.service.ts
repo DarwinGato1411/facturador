@@ -2,39 +2,24 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { MUsuario } from './modelos/modelo.datos';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class ConeccionapiService {
 
-  URLAPI = 'http://localhost:8087/api/';
+  URLAPI = 'http://localhost:8088/api/';
 
-  constructor(public http: HttpClient) { }
-  /*
-   login(inusuario, inpassword) {
-     const urlServer = this.URL + 'usuarios.php';
-     let body = new HttpParams();
-     body = body.set('usuario', inusuario);
-     body = body.set('password', inpassword);
-     body = body.set('op', 'login');    
-     return this.http.post(urlServer, body, { responseType: 'json' });
-   }
- 
-   paises() {
-     return this.http.get(this.URLAPI, { responseType: 'json' });
-   }
- */
-
-  /*SERVICIO PARA PRODUCTOS Y SERVICIOS*/
+  constructor(public http: HttpClient) {
+    this.URLAPI = 'http://localhost:8088/api/'
+  }
   buscarproductos(descripcion, codTipoambiente) {
 
     //ahi esta
     let tipo = 'productos/';
     console.log("BANDERA ......")
-   /* if (bandera != 'prod') {
-      tipo = 'servicios/';
-    }*/
+    /* if (bandera != 'prod') {
+       tipo = 'servicios/';
+     }*/
     console.log(descripcion)
     const urlServer = this.URLAPI + tipo;
 
@@ -67,8 +52,8 @@ export class ConeccionapiService {
       ofeEstado: true,
       ofeNombre: descripcion,
       ofeDescripcion: descripcion,
-
     };
+
     console.log("urlServer ---------- ", urlServer)
     //ahi funciona pero si le agrego eñ httOptions no reconoce
     const httpOptions = {
@@ -284,30 +269,30 @@ export class ConeccionapiService {
     return this.http.post(urlServer, postParam, httpOptions);
   }
 
-/*SERVICIO PARA OFERTA SERVICIOS*/
-eliminarservicio(idOfertaServicio, idUsuario) {
+  /*SERVICIO PARA OFERTA SERVICIOS*/
+  eliminarservicio(idOfertaServicio, idUsuario) {
 
-  //ahi esta
-  let tipo = 'eliminarservicio/';
+    //ahi esta
+    let tipo = 'eliminarservicio/';
 
-  console.log(" ", idOfertaServicio)
-  const urlServer = this.URLAPI + tipo;
+    console.log(" ", idOfertaServicio)
+    const urlServer = this.URLAPI + tipo;
 
-  const postParam = {
-    idOfertaServicio: idOfertaServicio,
-    idUsuario: {
-      idUsuario: idUsuario
-    }
-  };
-  console.log("urlServer ---------- ", urlServer)
-  //ahi funciona pero si le agrego eñ httOptions no reconoce
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
-  return this.http.post(urlServer, postParam, httpOptions);
-}
+    const postParam = {
+      idOfertaServicio: idOfertaServicio,
+      idUsuario: {
+        idUsuario: idUsuario
+      }
+    };
+    console.log("urlServer ---------- ", urlServer)
+    //ahi funciona pero si le agrego eñ httOptions no reconoce
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.post(urlServer, postParam, httpOptions);
+  }
 
   /*BUSCA LOS LUGARES TURISTICOS ESTADO DESCRIPCION  Y NOMBRE*/
   turismoall(busqueda) {
@@ -332,7 +317,7 @@ eliminarservicio(idOfertaServicio, idUsuario) {
     return this.http.post(urlServer, postParam, httpOptions);
   }
 
- 
+
 
   /*SERVICIO PARA clientes*/
   buscarclientes(descripcion, codTipoambiente) {
@@ -340,9 +325,9 @@ eliminarservicio(idOfertaServicio, idUsuario) {
     //ahi esta
     let tipo = 'clientes/';
     console.log("BANDERA ......")
-   /* if (bandera != 'prod') {
-      tipo = 'servicios/';
-    }*/
+    /* if (bandera != 'prod') {
+       tipo = 'servicios/';
+     }*/
     console.log(descripcion)
     const urlServer = this.URLAPI + tipo;
 
@@ -369,9 +354,9 @@ eliminarservicio(idOfertaServicio, idUsuario) {
     //ahi esta
     let tipo = 'facturas/';
     console.log("BANDERA ......")
-   /* if (bandera != 'prod') {
-      tipo = 'servicios/';
-    }*/
+    /* if (bandera != 'prod') {
+       tipo = 'servicios/';
+     }*/
     console.log(descripcion)
     const urlServer = this.URLAPI + tipo;
 
@@ -391,4 +376,21 @@ eliminarservicio(idOfertaServicio, idUsuario) {
     return this.http.post(urlServer, postParam, httpOptions);
   }
 
+  crearFactura(modeloFact) {
+    const tipo = 'factura-guardar/'
+    const urlServer = this.URLAPI + tipo;
+
+    fetch(urlServer, {
+      method: "POST",
+      body: JSON.stringify(modeloFact),
+      headers: { "Content-type": "application/json;charset=UTF-8" }
+    })
+      .then(response => response.json())
+      .then(json => console.log(json))
+      .catch(err => console.log(err))
+  };
 }
+
+
+
+

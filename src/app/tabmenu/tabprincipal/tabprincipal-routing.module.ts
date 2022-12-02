@@ -32,6 +32,15 @@ const routes: Routes = [
             ]
           },
           {
+            path: 'configuracion',
+            children: [
+              {
+                path: '',
+                loadChildren: () => import('../../usuario/configuracion/configuracion.module').then(m => m.ConfiguracionPageModule)
+              }
+            ]
+          },
+          {
             path: 'destacado',
             children: [
               {
