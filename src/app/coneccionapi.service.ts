@@ -117,7 +117,7 @@ export class ConeccionapiService {
   login(nombre, password) {
 
     //ahi esta
-    let tipo = 'loginservicios/';
+    let tipo = 'login/';
 
     console.log(nombre)
     const urlServer = this.URLAPI + tipo;
@@ -144,7 +144,6 @@ export class ConeccionapiService {
 
     console.log(nombre)
     const urlServer = this.URLAPI + tipo;
-
     const postParam = {
       usuPesonaEmpresa: tipoemp,
       usuLogin: nombre,

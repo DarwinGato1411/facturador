@@ -88,13 +88,12 @@ export class FacturarPage implements OnInit {
       }
     );
   }
-  calcularFactIva(prodIva, precioFinalPorProducto, prodCostoVentaRef, cantidadComprada, descuento) {
+  calcularFactIva(prodIva, precioFinalPorProducto, cantidadComprada, descuento) {
 
     let descuentoCalc = 0;
     if (descuento > 0 && descuento < precioFinalPorProducto) {
       descuentoCalc = precioFinalPorProducto - descuento;
     }
-
 
     this.facSubtotal = 0
     let precioFinal = precioFinalPorProducto - descuentoCalc;
@@ -102,7 +101,7 @@ export class FacturarPage implements OnInit {
     let precioInicial = precioFinal / indiceVariacion
     this.facSubtotal = precioInicial * cantidadComprada
     this.factIva = ((precioInicial * (prodIva / 100)) * cantidadComprada);
-
+    console.log(this.factIva)
   }
 
 
@@ -115,60 +114,22 @@ export class FacturarPage implements OnInit {
       this.carritoProducto.map(prod => {
         if (prod.idProducto == item.idProducto) {
 
-          this.factIva = 0;
-          this.facSubtotal = 0;
+
           prod.detCantidad = parseInt(prod.detCantidad) + 1;
-
           prod.totalPagarPorProducto = prod.detCantidad * prod.precioNuevo
-
-          this.calcularFactIva(prod.prodIva, prod.pordCostoVentaFinal, prod.pordCostoVentaRef, prod.detCantidad, 0)
-          prod.detIva = this.factIva
-          prod.detSubtotaldescuentoporcantidad = this.facSubtotal;
-
-
-          prod.detSubtotal = prod.pordCostoVentaFinal / (1 + (prod.prodIva / 100))
-          prod.detSubtotaldescuento = prod.precioNuevo / (1 + ((prod.prodIva / 100)))
-
-          prod.detSubtotaldescuentoporcantidad = this.facSubtotal;
-          prod.detTotal = prod.precioVentaNuevo
-          prod.totalPagarPoritemucto = prod.detCantidad * prod.precioNuevo
-          prod.detTotalconiva = prod.totalPagarPoritemucto
-          prod.detTotaldescuentoiva = prod.totalPagarPorProducto
-
-          prod.detValdescuento = (prod.detSubtotal - prod.detSubtotaldescuento)
-          prod.detTotaldescuento = prod.detValdescuento * prod.detCantidad
-          prod.detTotaldescuentoiva = prod.detTotalconiva
-
-          if (prod.precioVentaNuevo > 0 && prod.precioVentaNuevo < prod.pordCostoVentaFinal) {
-            prod.detPordescuento = prod.pordCostoVentaFinal;
-          }
+          this.calcularProducto(prod)
 
 
         }
       })
     } else {
-      item.totalPagarPorProducto = item.detCantidad * item.precioNuevo
-      this.factIva = 0;
-      this.facSubtotal = 0;
-      item.detCantidad = 1;
-      this.calcularFactIva(item.prodIva, item.pordCostoVentaFinal, item.pordCostoVentaRef, item.detCantidad, 0)
-      item.detIva = this.factIva
-      item.detSubtotaldescuentoporcantidad = this.facSubtotal;
 
 
-      item.detSubtotal = item.pordCostoVentaFinal / (1 + (item.prodIva / 100))
-      item.detSubtotaldescuento = item.pordCostoVentaFinal / (1 + (item.prodIva / 100))
-
-
-      item.detSubtotaldescuentoporcantidad = this.facSubtotal;
-      item.detTotal = item.pordCostoVentaFinal
-      item.totalPagarPoritemucto = item.detCantidad * item.pordCostoVentaFinal
-      item.detTotalconiva = item.totalPagarPoritemucto
-      item.detTotaldescuentoiva = item.pordCostoVentaFinal
-      item.detPordescuento = 0
-
+      itemCamposNuevos.totalPagarPorProducto = itemCamposNuevos.detCantidad * itemCamposNuevos.precioNuevo
+      console.log(itemCamposNuevos.totalPagarPorProducto, "=", itemCamposNuevos.detCantidad, itemCamposNuevos.precioNuevo)
+      console.log(itemCamposNuevos);
+      this.calcularProducto(itemCamposNuevos)
       this.carritoProducto.push(itemCamposNuevos)
-
     }
 
     this.calcularTotal()
@@ -187,79 +148,16 @@ export class FacturarPage implements OnInit {
   }
 
   totalProductoCalcularCantidad(cantidadProductoComprar, item) {
-
-
     item.totalPagarPorProducto = cantidadProductoComprar * item.precioNuevo
     item.detCantidad = parseInt(cantidadProductoComprar)
-    this.factIva = 0;
-    this.facSubtotal = 0;
-    item.detCantidad = item.detCantidad;
-    this.calcularFactIva(item.prodIva, item.pordCostoVentaFinal, item.pordCostoVentaRef, cantidadProductoComprar, item.precioNuevo)
-    item.detIva = this.factIva
-    item.detSubtotaldescuentoporcantidad = this.facSubtotal;
-
-    item.detSubtotal = item.pordCostoVentaFinal / (1 + (item.prodIva / 100))
-    item.detSubtotaldescuento = item.precioNuevo / (1 + ((item.prodIva / 100)))
-
-    item.detSubtotaldescuentoporcantidad = this.facSubtotal;
-    item.detTotal = parseFloat(item.precioNuevo)
-    item.totalPagarPoritemucto = item.detCantidad * item.precioNuevo
-    item.detTotalconiva = item.totalPagarPoritemucto
-    item.detTotaldescuentoiva = item.totalPagarPorProducto
-
-    item.detValdescuento = (item.detSubtotal - item.detSubtotaldescuento)
-    item.detCantpordescuento = item.detCantidad * item.detValdescuento
-
-    item.detTotaldescuento = item.detValdescuento * item.detCantidad
-    item.detTotaldescuentoiva = item.detTotalconiva
-
-
-    if (item.precioVentaNuevo > 0 && item.precioVentaNuevo < item.pordCostoVentaFinal) {
-      item.detPordescuento = item.pordCostoVentaFinal;
-    }
-
-    this.calcularTotal()
+    this.calcularProducto(item)
   }
 
   totalProductoCalcularPrecio(precioVentaNuevo, item) {
     if (precioVentaNuevo <= item.pordCostoVentaFinal) {
-
-
       item.precioNuevo = precioVentaNuevo
       item.totalPagarPorProducto = item.detCantidad * item.precioNuevo
-      this.factIva = 0;
-      this.facSubtotal = 0;
-      item.detCantidad = item.detCantidad;
-      this.calcularFactIva(item.prodIva, item.pordCostoVentaFinal, item.pordCostoVentaRef, item.detCantidad, precioVentaNuevo)
-      item.detIva = this.factIva
-      item.detSubtotaldescuentoporcantidad = this.facSubtotal;
-
-
-      item.detSubtotal = item.pordCostoVentaFinal / (1 + (item.prodIva / 100))
-      item.detSubtotaldescuento = item.precioNuevo / (1 + ((item.prodIva / 100)))
-
-
-      item.detSubtotaldescuentoporcantidad = this.facSubtotal;
-      item.detTotal = parseFloat(precioVentaNuevo)
-
-      item.totalPagarPoritemucto = item.detCantidad * item.precioNuevo
-      item.detTotalconiva = item.totalPagarPoritemucto
-      item.detTotaldescuentoiva = item.totalPagarPorProducto
-
-      item.detValdescuento = (item.detSubtotal - item.detSubtotaldescuento)
-      item.detCantpordescuento = item.detCantidad * item.detValdescuento
-
-      item.detTotaldescuento = item.detValdescuento * item.detCantidad
-      item.detTotaldescuentoiva = item.detTotalconiva
-
-
-      if (precioVentaNuevo > 0 && precioVentaNuevo < item.pordCostoVentaFinal) {
-        item.detPordescuento = item.pordCostoVentaFinal;
-      }
-
-
-      console.log(item)
-
+      this.calcularProducto(item)
     } else {
       precioVentaNuevo = item.pordCostoVentaFinal
       item.precioNuevo = item.pordCostoVentaFinal
@@ -272,6 +170,45 @@ export class FacturarPage implements OnInit {
       })
     }
     this.calcularTotal()
+  }
+
+  calcularProducto(item) {
+    this.factIva = 0;
+    this.facSubtotal = 0;
+    console.log(item.detCantidad)
+
+    this.calcularFactIva(item.prodIva, item.pordCostoVentaFinal, item.detCantidad, item.precioNuevo)
+    item.detIva = this.factIva
+    item.detSubtotaldescuentoporcantidad = this.facSubtotal;
+
+    item.detSubtotal = item.pordCostoVentaFinal / (1 + (item.prodIva / 100))
+    item.detSubtotaldescuento = item.precioNuevo / (1 + ((item.prodIva / 100)))
+
+
+    item.detSubtotaldescuentoporcantidad = this.facSubtotal;
+    item.detTotal = parseFloat(item.precioNuevo)
+
+    item.totalPagarPoritemucto = item.detCantidad * item.precioNuevo
+    item.detTotalconiva = item.totalPagarPoritemucto
+    item.detTotaldescuentoiva = item.totalPagarPorProducto
+
+    item.detValdescuento = (item.detSubtotal - item.detSubtotaldescuento)
+    item.detCantpordescuento = item.detCantidad * item.detValdescuento
+
+    item.detTotaldescuento = item.detValdescuento * item.detCantidad
+
+    item.detTarifa = item.prodIva
+    item.prodGrabaIva ? item.detCodPorcentaje = 2 : item.detCodPorcentaje = 0
+
+
+
+
+    if (item.precioVentaNuevo > 0 && item.precioVentaNuevo < item.pordCostoVentaFinal) {
+      item.detPordescuento = item.pordCostoVentaFinal;
+    }
+
+    this.calcularTotal()
+    console.log(item)
   }
 
   formatearFecha(fecha, formato) {
@@ -311,13 +248,15 @@ export class FacturarPage implements OnInit {
 
       element.detDescripcion = element.prodNombre
       element.detCodIva = "2"
-      element.detCodPorcentaje = "2"
+      // element.detCodPorcentaje = "2"
 
       element.detValorIce = 0
       element.detTipoVenta = 'NORMAL'
       element.detCodTipoVenta = "0"
       element.idProducto = { "idProducto": idProducto }
-      this.eliminarCampos(element)
+
+
+      // this.eliminarCampos(element)
     })
 
     let modeloFactura = {
@@ -365,6 +304,7 @@ export class FacturarPage implements OnInit {
     console.log(JSON.stringify(modeloFactura))
 
     this.cnx.crearFactura(modeloFactura)
+    this.carritoProducto = [];
   }
 
   eliminarCampos(item) {
