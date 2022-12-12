@@ -17,6 +17,8 @@ export class FacturarPage implements OnInit {
   descripcion = "";
 
   total = 0;
+  iva=0;
+  desc=0;
   totalPorProducto = 0;
 
   listaproductos;
@@ -57,10 +59,10 @@ export class FacturarPage implements OnInit {
   }
 
   handleChangeProd(event) {
-
-    const query = event.target.value.toUpperCase();
+    const query = event.target.value;
     this.buscarproducto(query, this.codTipoambiente)
   }
+  
   /*OBTENEMOS LOS DATOS DEL API REST*/
   async buscarproducto(descripcion, codTipoambiente) {
 
@@ -113,18 +115,12 @@ export class FacturarPage implements OnInit {
     if (this.carritoProducto.find(prod => prod.idProducto === item.idProducto)) {
       this.carritoProducto.map(prod => {
         if (prod.idProducto == item.idProducto) {
-
-
           prod.detCantidad = parseInt(prod.detCantidad) + 1;
           prod.totalPagarPorProducto = prod.detCantidad * prod.precioNuevo
           this.calcularProducto(prod)
-
-
         }
       })
     } else {
-
-
       itemCamposNuevos.totalPagarPorProducto = itemCamposNuevos.detCantidad * itemCamposNuevos.precioNuevo
       console.log(itemCamposNuevos.totalPagarPorProducto, "=", itemCamposNuevos.detCantidad, itemCamposNuevos.precioNuevo)
       console.log(itemCamposNuevos);
@@ -137,8 +133,12 @@ export class FacturarPage implements OnInit {
 
   calcularTotal() {
     this.total = 0;
+    this.iva=0;
+    this.desc=0;
     this.carritoProducto.forEach(producto => {
-      this.total = this.total + producto.totalPagarPorProducto
+      this.total =Number((this.total + producto.totalPagarPorProducto).toFixed(2))
+      this.iva=Number((this.iva+producto.detIva).toFixed(2))
+      this.desc=Number((this.desc+((producto.pordCostoVentaFinal-producto.detTotal)*producto.detCantidad)).toFixed(2))
     });
   }
 

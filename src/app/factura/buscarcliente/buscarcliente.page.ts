@@ -16,17 +16,17 @@ export class BuscarclientePage implements OnInit {
   constructor(public alertController: AlertController,
     private loadingController: LoadingController,
     private cnx: ConeccionapiService,
-    private router: Router) { 
+    private router: Router) {
     this.codTipoambiente = localStorage.getItem("codTipoambiente");
-    console.log("this.codTipoambiente",this.codTipoambiente)
+    console.log("this.codTipoambiente", this.codTipoambiente)
     this.buscarclientes(this.descripcion, this.codTipoambiente)
   }
 
   ngOnInit() {
   }
 
-   /*OBTENEMOS LOS DATOS DEL API REST*/
-   async buscarclientes(descripcion, codTipoambiente) {
+  /*OBTENEMOS LOS DATOS DEL API REST*/
+  async buscarclientes(descripcion, codTipoambiente) {
 
     /*const loading = await this.loadingController.create({
       message: 'Verificando',
@@ -34,18 +34,18 @@ export class BuscarclientePage implements OnInit {
     loading.present();*/
     //
 
-    this.cnx.buscarclientes(descripcion,codTipoambiente).subscribe(
+    this.cnx.buscarclientes(descripcion, codTipoambiente).subscribe(
       (ok: any) => {
 
         this.listaClientes = ok;
-      //  loading.dismiss();
+        //  loading.dismiss();
 
 
         console.log(ok);
         //   this.router.navigateByUrl('tabprincipal');
       },
       error => {
-       // loading.dismiss();
+        // loading.dismiss();
         console.log(JSON.stringify(error));
         alert(JSON.stringify(error));
         this.presentAlert('Error de datos ....');
@@ -66,10 +66,10 @@ export class BuscarclientePage implements OnInit {
     await alert.present();
   }
 
-   crearFactura(usu){
-    localStorage.setItem("usuario",JSON.stringify(usu))
-   
-    this.router.navigateByUrl(`facturar/qwe`);
+  crearFactura(usu) {
+    localStorage.setItem("usuario", JSON.stringify(usu))
+    this.router.navigateByUrl(`facturar`);
   }
 
+  
 }

@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Crear Cliente</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div>
+    <form [formGroup]="cliente" class="contenedorFormulario" (ngSubmit)="guardarDatos()">
+
+      <div class="contenedorInput">
+        <ion-label>Tipo de documento:</ion-label>
+        <select formControlName="idTipoIdentificacion" name="select">
+          <option value=1 selected>RUC</option>
+          <option value=2>CEDULA</option>
+          <option value=3>PASAPORTE</option>
+        </select>
+      </div>
+
+
+      <div class="contenedorInput">
+        <ion-label>RUC:</ion-label>
+        <input formControlName="cliCedula" type="text">
+      </div>
+
+      <div class="contenedorInput">
+        <ion-label>Ciudad:</ion-label>
+        <input formControlName="ciudad" type="text">
+      </div>
+      <div class="contenedorInput">
+        <ion-label>Razon Social/Nombre:</ion-label>
+        <input formControlName="cliNombre" type="text">
+      </div>
+      <div class="contenedorInput">
+        <ion-label>Fecha Registro:</ion-label>
+        <input formControlName="clieFechaRegistro" enabled="false" type="text">
+      </div>
+      <div class="contenedorInput">
+        <ion-label>Teléfono:</ion-label>
+        <input formControlName="cliTelefono" type="text">
+      </div>
+      <div class="contenedorInput">
+        <ion-label>Celular:</ion-label>
+        <input formControlName="cliMovil" type="text">
+      </div>
+      <div class="contenedorInput">
+        <ion-label>Dirección:</ion-label>
+        <input formControlName="cliDireccion" type="text">
+      </div>
+
+      <div class="contenedorInput">
+        <ion-label>Correo:</ion-label>
+        <input formControlName="cliCorreo" type="email">
+      </div>
+
+      <p class="ion-text-center">
+        <ion-button type="submit">Guardar</ion-button>
+      </p>
+    </form>
+  </div>
+</ion-content>

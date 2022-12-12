@@ -6,12 +6,8 @@
 
 <ion-content>
   <ion-item *ngFor="let usu of listaClientes">
-
-
-
     <ion-card style=" width: 100% !important;">
       <ion-item lines="inset">
-
         <ion-text>
 
           <p>
@@ -19,7 +15,6 @@
           </p>
         </ion-text>
       </ion-item>
-
 
       <!--<img src={{item.usuFotografia}} alt="ion">-->
       <ion-card-header>
@@ -49,7 +44,7 @@
           </ion-col>
           <ion-col center text-center>
 
-            <ion-button  target="_blank" expand="block" >
+            <ion-button target="_blank" expand="block">
               <ion-icon name="pencil"></ion-icon>
               <div> Editar</div>
             </ion-button>
@@ -60,4 +55,11 @@
 
 
   </ion-item>
+
 </ion-content>
+
+<ion-fab (click)="crearCliente()" vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button>
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

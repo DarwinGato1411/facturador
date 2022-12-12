@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { ConeccionapiService } from 'src/app/coneccionapi.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cliente',
@@ -14,7 +15,7 @@ export class ClientePage implements OnInit {
 
   constructor(public alertController: AlertController,
     private loadingController: LoadingController,
-    private cnx: ConeccionapiService) { 
+    private cnx: ConeccionapiService,private router: Router) { 
     this.codTipoambiente = localStorage.getItem("codTipoambiente");
     console.log("this.codTipoambiente",this.codTipoambiente)
     this.buscarclientes(this.descripcion, this.codTipoambiente)
@@ -65,4 +66,7 @@ export class ClientePage implements OnInit {
     await alert.present();
   }
 
+  crearCliente(){
+    this.router.navigateByUrl(`crearCliente`);
+  }
 }

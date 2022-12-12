@@ -89,15 +89,29 @@ const routes: Routes = [
     loadChildren: () => import('./factura/listafactura/listafactura.module').then( m => m.ListafacturaPageModule)
   },
   {
-    path: 'facturar/:usuario',
+    path: 'facturar',
     loadChildren: () => import('./factura/facturar/facturar.module').then( m => m.FacturarPageModule)
+  },
+  {
+    path: 'crearCliente',
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./factura/crear-cliente/crear-cliente.module').then(m=>m.CrearClientePageModule)
+      }
+    ]
   },
   {
     path: 'buscarcliente',
     loadChildren: () => import('./factura/buscarcliente/buscarcliente.module').then( m => m.BuscarclientePageModule)
-  },  {
+  },
+  {
     path: 'configuracion',
     loadChildren: () => import('./usuario/configuracion/configuracion.module').then( m => m.ConfiguracionPageModule)
+  },
+  {
+    path: 'crear-cliente',
+    loadChildren: () => import('./factura/crear-cliente/crear-cliente.module').then( m => m.CrearClientePageModule)
   },
 
 ];

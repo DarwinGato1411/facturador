@@ -15,8 +15,6 @@
     placeholder="Buscar un producto "></ion-searchbar>
 
   <ion-content class="" style="height: 150px;" [scrollEvents]="true">
-
-
     <div class="contenedorProducto" *ngFor="let item of listaproductos">
       <div class="detallesProducto">
         <div class="item">
@@ -30,11 +28,7 @@
           <div (click)="agregarCarrito(item)"> Agregar </div>
         </ion-button>
       </div>
-
-
     </div>
-
-
   </ion-content>
 
 
@@ -100,6 +94,14 @@
   <div class="total">
     <span class="tl">Total:</span>
     <span class="tlN">${{total}}</span>
+  </div>
+  <div class="total">
+    <span class="tl">IVA:</span>
+    <span class="tlN">${{iva}}</span>
+  </div>
+  <div class="total">
+    <span class="tl">DESC:</span>
+    <span class="tlN">${{desc}}</span>
   </div>
   <ion-button (click)="facturar()">Facturar</ion-button>
 </ion-footer>

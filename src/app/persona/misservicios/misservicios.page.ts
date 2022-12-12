@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { ConeccionapiService } from 'src/app/coneccionapi.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-misservicios',
@@ -12,19 +13,19 @@ export class MisserviciosPage implements OnInit {
 
   listaServicios
   codTipoambiente
-
+  listaproductos;
   descripcion = "";
   constructor(public alertController: AlertController,
     private loadingController: LoadingController,
     private cnx: ConeccionapiService) {
-      this.codTipoambiente = localStorage.getItem("codTipoambiente");
-    console.log("this.codTipoambiente",this.codTipoambiente)
-    this.buscarservicios(this.descripcion, this.codTipoambiente)
+    this.codTipoambiente = localStorage.getItem("codTipoambiente");
+    console.log("this.codTipoambiente", this.codTipoambiente)
+    this.buscarproducto(this.descripcion, this.codTipoambiente)
 
   }
 
   ngOnInit() {
-  //  this.buscarservicios(this.descripcion, this.idUsuario)
+    //  this.buscarservicios(this.descripcion, this.idUsuario)
 
   }
 
@@ -32,36 +33,41 @@ export class MisserviciosPage implements OnInit {
   public eliminarservicios(idOfertaServicio) {
 
     this.eliminarservicio(idOfertaServicio, this.codTipoambiente);
-    
+
   }
+
+  handleChangeProd(event) {
+    const query = event.target.value;
+    this.buscarproducto(query, this.codTipoambiente)
+  }
+
+
   /*OBTENEMOS LOS DATOS DEL API REST*/
-  async buscarservicios(descripcion, codTipoambiente) {
+  async buscarproducto(descripcion, codTipoambiente) {
 
-    /*const loading = await this.loadingController.create({
-      message: 'Verificando',
-    });
-    loading.present();*/
-    //
+    Swal.fire({
 
-    this.cnx.buscarproductos(descripcion,codTipoambiente).subscribe(
+      icon: 'success',
+      title: 'Estamos cargando sus productos',
+      showConfirmButton: false,
+
+    })
+    await this.cnx.buscarproductos(descripcion, codTipoambiente).subscribe(
       (ok: any) => {
+        ok.forEach(element => {
+          delete element.codTipoambiente
+        });
 
-        this.listaServicios = ok;
-      //  loading.dismiss();
-
-
-        console.log(ok);
-        //   this.router.navigateByUrl('tabprincipal');
+        this.listaproductos = ok;
+        console.log(this.listaproductos)
+        Swal.close()
       },
       error => {
-       // loading.dismiss();
         console.log(JSON.stringify(error));
         alert(JSON.stringify(error));
         this.presentAlert('Error de datos ....');
       }
-
     );
-
   }
 
   async presentAlert(mensaje) {
@@ -88,8 +94,8 @@ export class MisserviciosPage implements OnInit {
 
     this.cnx.eliminarservicio(idOfertaServicio, idUsuario).subscribe(
       (ok: any) => {
-        this.buscarservicios(this.descripcion, this.codTipoambiente)
-      //  this.listaServicios = ok;
+        this.buscarproducto(this.descripcion, this.codTipoambiente)
+        //  this.listaServicios = ok;
         loading.dismiss();
 
 
@@ -107,8 +113,8 @@ export class MisserviciosPage implements OnInit {
 
   }
 
-   /*OBTENEMOS LOS DATOS DEL API REST*/
-   async modificar(idProducto) {
+  /*OBTENEMOS LOS DATOS DEL API REST*/
+  async modificar(idProducto) {
 
     const loading = await this.loadingController.create({
       message: 'Verificando',
@@ -118,8 +124,8 @@ export class MisserviciosPage implements OnInit {
 
     this.cnx.eliminarservicio(idProducto, idProducto).subscribe(
       (ok: any) => {
-        this.buscarservicios(this.descripcion, this.codTipoambiente)
-      //  this.listaServicios = ok;
+        this.buscarproducto(this.descripcion, this.codTipoambiente)
+        //  this.listaServicios = ok;
         loading.dismiss();
 
 

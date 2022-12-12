@@ -1,7 +1,4 @@
 <ion-header >
- 
- 
-    
   <ion-toolbar color="light">
     <ion-buttons slot="primary">
       <ion-button (click)="buscar()" color="primary" >
@@ -11,9 +8,6 @@
     <ion-searchbar showCancelButton="focus" [(ngModel)]="busquedaSearch" placeholder="Buscar "
       (ionChange)=upperCase(busquedaSearch)></ion-searchbar>
   </ion-toolbar>
-
-
-
 </ion-header>
 
 <ion-content [fullscreen]="true">

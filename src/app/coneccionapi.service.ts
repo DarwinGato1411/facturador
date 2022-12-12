@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { MUsuario } from './modelos/modelo.datos';
+import Swal from 'sweetalert2'
 
 @Injectable({
   providedIn: 'root'
@@ -13,23 +14,14 @@ export class ConeccionapiService {
     this.URLAPI = 'http://localhost:8088/api/'
   }
   buscarproductos(descripcion, codTipoambiente) {
-
-    //ahi esta
     let tipo = 'productos/';
     console.log("BANDERA ......")
-    /* if (bandera != 'prod') {
-       tipo = 'servicios/';
-     }*/
     console.log(descripcion)
     const urlServer = this.URLAPI + tipo;
-
     const postParam = {
       prodNombre: descripcion,
       codTipoambiente: codTipoambiente
     };
-    console.log("urlServer ---------- ", urlServer)
-    console.log("postParam ---------- ", postParam)
-    //ahi funciona pero si le agrego eñ httOptions no reconoce
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -327,13 +319,13 @@ export class ConeccionapiService {
     /* if (bandera != 'prod') {
        tipo = 'servicios/';
      }*/
-    console.log(descripcion)
     const urlServer = this.URLAPI + tipo;
 
     const postParam = {
-      prodNombre: descripcion,
+      prodNombre: '',
       codTipoambiente: codTipoambiente
     };
+    console.log('postParamClientes', postParam)
     console.log("urlServer ---------- ", urlServer)
     console.log("postParam ---------- ", postParam)
     //ahi funciona pero si le agrego eñ httOptions no reconoce
@@ -375,16 +367,44 @@ export class ConeccionapiService {
     return this.http.post(urlServer, postParam, httpOptions);
   }
 
-  crearFactura(modeloFact) {
+  crearFactura(factura) {
     const tipo = 'factura-guardar/'
     const urlServer = this.URLAPI + tipo;
 
     fetch(urlServer, {
       method: "POST",
-      body: JSON.stringify(modeloFact),
+      body: JSON.stringify(factura),
       headers: { "Content-type": "application/json;charset=UTF-8" }
     })
-      .then(response => response.json())
+      .then(response => {
+        console.log("estatus creacion factura", response.status)
+        return response.json()
+      })
+      .then(json => console.log(json))
+      .catch(err => console.log(err))
+  };
+
+  crearCliente(cliente) {
+    const tipo = 'clientes-crear-editar/'
+    const urlServer = this.URLAPI + tipo;
+
+    fetch(urlServer, {
+      method: "POST",
+      body: JSON.stringify(cliente),
+      headers: { "Content-type": "application/json;charset=UTF-8" }
+    })
+      .then(response => {
+        console.log("estatus creacion cliente", response.status)
+        if (response.status === 200) {
+          Swal.fire({
+            icon: 'success',
+            title: 'ok!',
+            text: 'Cliente creado con exito',
+            timer: 1500
+          })
+          return response.json()
+        }
+      })
       .then(json => console.log(json))
       .catch(err => console.log(err))
   };

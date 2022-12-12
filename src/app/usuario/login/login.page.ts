@@ -50,17 +50,10 @@ export class LoginPage implements OnInit {
         }
         localStorage.setItem("idUsuario", usuario.idUsuario);
         localStorage.setItem("usuario", usuario.usuLogin);
-        localStorage.setItem("password", usuario.usuPassword);
-       // localStorage.setItem("personaempresa", usuario.usuPesonaEmpresa);
-        //localStorage.setItem("idParroquia", usuario.idParroquia.idParroquia);
-        //localStorage.setItem("idCanton", usuario.idParroquia.idCanton.idCanton);
-      //  localStorage.setItem("idTipoActividad", idActividad);
-      localStorage.setItem("codTipoambiente", usuario.codTipoAmbiente);
-        localStorage.setItem("nombreperfil",usuario.usuNombre);
-       // localStorage.setItem("paginweb",usuario.usuPagina);
-       // localStorage.setItem("whatsappper",usuario.usuWhatsapp);
-
-        // 
+        localStorage.setItem("password", usuario.usuPassword)
+        
+        localStorage.setItem("codTipoambiente", usuario.codTipoAmbiente);
+        localStorage.setItem("nombreperfil", usuario.usuNombre);
         this.router.navigateByUrl('principal');
       },
       error => {
