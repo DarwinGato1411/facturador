@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ConeccionapiService } from 'src/app/coneccionapi.service';
 
 @Component({
@@ -32,7 +33,7 @@ export class CrearClientePage implements OnInit {
     cliCorreo: new FormControl(''),
     clietipo: new FormControl(0),
   })
-  constructor(private cnx: ConeccionapiService) { }
+  constructor(private cnx: ConeccionapiService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -50,5 +51,7 @@ export class CrearClientePage implements OnInit {
     }
     console.log(cliente)
     this.cnx.crearCliente(cliente)
+
+    this.router.navigateByUrl('cliente');
   }
 }
