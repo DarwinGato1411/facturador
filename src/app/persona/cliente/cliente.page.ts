@@ -67,6 +67,6 @@ export class ClientePage implements OnInit {
   }
 
   crearCliente(){
-    this.router.navigateByUrl(`crearCliente`);
+    this.router.navigateByUrl(`crear-cliente`);
   }
 }

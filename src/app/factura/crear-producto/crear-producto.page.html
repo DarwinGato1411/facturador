@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>crear-producto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <form [formGroup]="cliente" class="contenedorFormulario" (ngSubmit)="guardarDatos()">
+
+      <div class="contenedorInput">
+        <ion-label>Tipo:</ion-label>
+        <select formControlName="idTipoIdentificacion" name="select">
+          <option value=1>Servicio</option>
+          <option value=2 selected>Producto</option>
+        </select>
+      </div>
+
+
+      <div class="contenedorInput">
+        <ion-label>RUC:</ion-label>
+        <input formControlName="" type="text">
+      </div>
+
+      <div class="contenedorInput">
+        <ion-label>Ciudad:</ion-label>
+        <input formControlName="" type="text">
+      </div>
+      <div class="contenedorInput">
+        <ion-label>Razon Social/Nombre:</ion-label>
+        <input formControlName="" type="text">
+      </div>
+      <div class="contenedorInput">
+        <ion-label>Fecha Registro:</ion-label>
+        <input formControlName="" enabled="false" type="text">
+      </div>
+      <div class="contenedorInput">
+        <ion-label>Teléfono:</ion-label>
+        <input formControlName="" type="text">
+      </div>
+      <div class="contenedorInput">
+        <ion-label>Celular:</ion-label>
+        <input formControlName="" type="text">
+      </div>
+      <div class="contenedorInput">
+        <ion-label>Dirección:</ion-label>
+        <input formControlName="" type="text">
+      </div>
+
+      <div class="contenedorInput">
+        <ion-label>Correo:</ion-label>
+        <input formControlName="" type="email">
+      </div>
+
+      <p class="ion-text-center">
+        <ion-button type="submit">Guardar</ion-button>
+      </p>
+    </form>
+  </div>
+</ion-content>

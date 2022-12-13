@@ -407,7 +407,31 @@ export class ConeccionapiService {
       })
       .then(json => console.log(json))
       .catch(err => console.log(err))
-  };
+  }
+
+  crearProducto(producto){
+    const tipo = 'productos-crear-editar/'
+    const urlServer = this.URLAPI + tipo;
+    fetch(urlServer, {
+      method: "POST",
+      body: JSON.stringify(producto),
+      headers: { "Content-type": "application/json;charset=UTF-8" }
+    })
+      .then(response => {
+        console.log("estatus creacion producto", response.status)
+        if (response.status === 200) {
+          Swal.fire({
+            icon: 'success',
+            title: 'ok!',
+            text: 'Producto creado con exito',
+            timer: 1500
+          })
+          return response.json()
+        }
+      })
+      .then(json => console.log(json))
+      .catch(err => console.log(err))
+  }
 }
 
 
