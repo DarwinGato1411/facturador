@@ -322,7 +322,7 @@ export class ConeccionapiService {
     const urlServer = this.URLAPI + tipo;
 
     const postParam = {
-      prodNombre: '',
+      prodNombre: descripcion,
       codTipoambiente: codTipoambiente
     };
     console.log('postParamClientes', postParam)

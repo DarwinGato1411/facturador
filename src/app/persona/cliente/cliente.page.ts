@@ -25,9 +25,17 @@ export class ClientePage implements OnInit {
   ngOnInit() {
   }
 
+
+  handleChangeProd(event) {
+  
+    const query = event.target.value;
+    this.buscarclientes(query, this.codTipoambiente)
+
+  }
+
    /*OBTENEMOS LOS DATOS DEL API REST*/
    async buscarclientes(descripcion, codTipoambiente) {
-
+    console.log('descripcion ',descripcion, codTipoambiente)
     /*const loading = await this.loadingController.create({
       message: 'Verificando',
     });

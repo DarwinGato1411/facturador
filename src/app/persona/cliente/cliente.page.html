@@ -5,6 +5,9 @@
 </ion-header>
 
 <ion-content>
+  <ion-searchbar showCancelButton="focus" [debounce]="1000" (ionChange)="handleChangeProd($event)"
+    placeholder="Buscar cliente ">
+  </ion-searchbar>
   <ion-item *ngFor="let usu of listaClientes">
     <ion-card style=" width: 100% !important;">
       <ion-item lines="inset">
