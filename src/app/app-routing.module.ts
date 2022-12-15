@@ -101,7 +101,7 @@ const routes: Routes = [
     loadChildren: () => import('./usuario/configuracion/configuracion.module').then( m => m.ConfiguracionPageModule)
   },
   {
-    path: 'crear-cliente',
+    path: 'crear-cliente/:estado',
     loadChildren: () => import('./factura/crear-cliente/crear-cliente.module').then( m => m.CrearClientePageModule)
   },
   {

@@ -74,7 +74,12 @@ export class ClientePage implements OnInit {
     await alert.present();
   }
 
+  editarCliente(cliente){
+    localStorage.setItem("clienteEditar",JSON.stringify(cliente))
+    this.router.navigateByUrl(`crear-cliente/Editar`);
+  }
+
   crearCliente(){
-    this.router.navigateByUrl(`crear-cliente`);
+    this.router.navigateByUrl(`crear-cliente/Crear`);
   }
 }
