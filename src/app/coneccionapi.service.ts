@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { MUsuario } from './modelos/modelo.datos';
 import Swal from 'sweetalert2'
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class ConeccionapiService {
 
   URLAPI = 'http://localhost:8088/api/';
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient,  private router: Router) {
     this.URLAPI = 'http://localhost:8088/api/'
   }
   buscarproductos(descripcion, codTipoambiente) {
@@ -402,6 +403,7 @@ export class ConeccionapiService {
             text: 'Cliente creado con exito',
             timer: 1500
           })
+          this.router.navigateByUrl('cliente');
           return response.json()
         }
       })

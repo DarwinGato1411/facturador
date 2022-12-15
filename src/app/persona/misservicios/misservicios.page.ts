@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { ConeccionapiService } from 'src/app/coneccionapi.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-misservicios',
@@ -15,9 +16,11 @@ export class MisserviciosPage implements OnInit {
   codTipoambiente
   listaproductos;
   descripcion = "";
+  
   constructor(public alertController: AlertController,
     private loadingController: LoadingController,
-    private cnx: ConeccionapiService) {
+    private cnx: ConeccionapiService,
+    private router: Router) {
     this.codTipoambiente = localStorage.getItem("codTipoambiente");
     console.log("this.codTipoambiente", this.codTipoambiente)
     this.buscarproducto(this.descripcion, this.codTipoambiente)
@@ -140,7 +143,9 @@ export class MisserviciosPage implements OnInit {
       }
 
     );
-
+  }
+  crearProducto(){
+    this.router.navigateByUrl(`crear-producto`);
   }
 
 }

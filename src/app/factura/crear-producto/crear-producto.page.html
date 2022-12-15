@@ -1,60 +1,64 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>crear-producto</ion-title>
-  </ion-toolbar>
+    <ion-title>Crear Producto</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="principal/misservicio"></ion-back-button>
+    </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div>
-    <form [formGroup]="cliente" class="contenedorFormulario" (ngSubmit)="guardarDatos()">
+    <form [formGroup]="producto" class="contenedorFormulario" (ngSubmit)="crearProducto()">
 
       <div class="contenedorInput">
         <ion-label>Tipo:</ion-label>
-        <select formControlName="idTipoIdentificacion" name="select">
-          <option value=1>Servicio</option>
-          <option value=2 selected>Producto</option>
+        <select formControlName="prodEsproducto" name="select">
+          <option value=true selected>Producto</option>
+          <option value=false>Servicio</option>
         </select>
       </div>
-
-
       <div class="contenedorInput">
-        <ion-label>RUC:</ion-label>
-        <input formControlName="" type="text">
-      </div>
-
-      <div class="contenedorInput">
-        <ion-label>Ciudad:</ion-label>
-        <input formControlName="" type="text">
-      </div>
-      <div class="contenedorInput">
-        <ion-label>Razon Social/Nombre:</ion-label>
-        <input formControlName="" type="text">
+        <ion-label>Declaración:</ion-label>
+        <select formControlName="prodGrabaIva" name="select">
+          <option value=true selected>Graba IVA</option>
+          <option value=false>Sin Iva</option>
+        </select>
       </div>
       <div class="contenedorInput">
         <ion-label>Fecha Registro:</ion-label>
-        <input formControlName="" enabled="false" type="text">
-      </div>
-      <div class="contenedorInput">
-        <ion-label>Teléfono:</ion-label>
-        <input formControlName="" type="text">
-      </div>
-      <div class="contenedorInput">
-        <ion-label>Celular:</ion-label>
-        <input formControlName="" type="text">
-      </div>
-      <div class="contenedorInput">
-        <ion-label>Dirección:</ion-label>
-        <input formControlName="" type="text">
+        <input formControlName="prodFechaRegistro" type="text" readonly>
       </div>
 
       <div class="contenedorInput">
-        <ion-label>Correo:</ion-label>
-        <input formControlName="" type="email">
+        <ion-label>%IVA:</ion-label>
+        <input type="text" formControlName="prodIva" readonly>
+      </div>
+      <div class="contenedorInput">
+        <ion-label>Código:</ion-label>
+        <input type="text" formControlName="prodCodigo">
+      </div>
+      <div class="contenedorInput">
+        <ion-label>Nombre Producto:</ion-label>
+        <input type="text" formControlName="prodNombre">
       </div>
 
-      <p class="ion-text-center">
-        <ion-button type="submit">Guardar</ion-button>
-      </p>
+      <div class="contenedorInput">
+        <ion-label>Costo / compra:</ion-label>
+        <input (input)="compraIVA()" type="number" formControlName="pordCostoCompra">
+      </div>
+      <div class="contenedorInput">
+        <ion-label>Compra con IVA:</ion-label>
+        <input type="number" formControlName="pordCostoVentaRef" readonly>
+      </div>
+
+
+      <div class="contenedorInput">
+        <ion-label>Precio pvp:</ion-label>
+        <input type="number" formControlName="pordCostoVentaFinal">
+      </div>
+
+      <ion-button type="submit">Guardar</ion-button>
     </form>
   </div>
 </ion-content>

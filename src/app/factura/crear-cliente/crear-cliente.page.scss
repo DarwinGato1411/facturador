@@ -6,24 +6,25 @@ ion-content {
 
     .contenedorFormulario {
         padding: 10px;
-        border: white solid 1px;
+       
         display: grid;
 
         .contenedorInput {
-            border: white solid 1px;
+           
             margin: auto;
             display: grid;
             width: 100%;
-            grid-template-columns: 30% 70%;
+            grid-template-columns: 35% 65%;
             margin-bottom: 10px;
             box-sizing: border-box;
             align-items: center;
-            input {
+            input, select {
                 width: 100%;
                 border-radius: 20px;
                 border-style: none;
-                padding: 5px;
+                padding: 5px 5px 5px 20px;
                 width: 100%;
+                border: solid 1px black;
             }
         }
     }

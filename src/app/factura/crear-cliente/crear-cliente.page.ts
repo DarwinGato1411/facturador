@@ -49,9 +49,9 @@ export class CrearClientePage implements OnInit {
         idTipoIdentificacion: this.cliente.controls.idTipoIdentificacion.value,
       },
     }
-    console.log(cliente)
+   
     this.cnx.crearCliente(cliente)
 
-    this.router.navigateByUrl('cliente');
+    
   }
 }

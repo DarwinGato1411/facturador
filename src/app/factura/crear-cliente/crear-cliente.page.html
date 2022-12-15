@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Crear Cliente</ion-title>
+    <ion-title class="ion-text-center">Crear Cliente</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="tabprincipal/login"></ion-back-button>
     </ion-buttons>
@@ -37,7 +37,7 @@
       </div>
       <div class="contenedorInput">
         <ion-label>Fecha Registro:</ion-label>
-        <input formControlName="clieFechaRegistro" enabled="false" type="text">
+        <input formControlName="clieFechaRegistro" type="text" readonly>
       </div>
       <div class="contenedorInput">
         <ion-label>Teléfono:</ion-label>
@@ -57,9 +57,8 @@
         <input formControlName="cliCorreo" type="email">
       </div>
 
-      <p class="ion-text-center">
-        <ion-button type="submit">Guardar</ion-button>
-      </p>
+      <ion-button type="submit">Guardar</ion-button>
+
     </form>
   </div>
 </ion-content>
