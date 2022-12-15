@@ -9,10 +9,15 @@ import { Router } from '@angular/router';
 })
 export class ConeccionapiService {
 
-  URLAPI = 'http://localhost:8088/api/';
+  URLAPI;
+  ipServidor
 
   constructor(public http: HttpClient,  private router: Router) {
-    this.URLAPI = 'http://localhost:8088/api/'
+    this.ipServidor=localStorage.getItem('ipservidor')
+    this.URLAPI = `http://${this.ipServidor}/api/`
+  }
+  ngOnInit() {
+    
   }
   buscarproductos(descripcion, codTipoambiente) {
     let tipo = 'productos/';
@@ -108,8 +113,9 @@ export class ConeccionapiService {
 
   /* LOGIN*/
   login(nombre, password) {
-
-    //ahi esta
+    this.ipServidor=localStorage.getItem('ipservidor')
+    this.URLAPI = `http://${this.ipServidor}/api/`
+    
     let tipo = 'login/';
 
     console.log(nombre)

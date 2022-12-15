@@ -7,6 +7,7 @@
 <ion-content>
   <ion-item>
     <ion-label>Ingrese direccion ip</ion-label>
-    <ion-input value="localhost"></ion-input>
+    <ion-input type="text" [formControl]="ipServidor" ></ion-input>
   </ion-item>
+  <ion-button (click)="guardarServidor()">Guardar</ion-button>
 </ion-content>
