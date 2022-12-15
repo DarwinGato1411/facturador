@@ -60,7 +60,7 @@
       </ion-row>
       <ion-row class="contenedorProductos" *ngFor="let item of carritoProducto">
         <ion-col>
-          <ion-input (input)="totalProductoCalcularCantidad($event.target.value,item)" value={{item.detCantidad}}>
+          <ion-input type="number" (input)="totalProductoCalcularCantidad($event.target.value,item)" value={{item.detCantidad}}>
           </ion-input>
         </ion-col>
         <ion-col>
@@ -68,15 +68,14 @@
         </ion-col>
         <ion-col class="itemDinero">
           <span>$</span>
-          <ion-input type="number" (input)="totalProductoCalcularPrecio($event.target.value,item)"
-            value={{item.precioNuevo}}></ion-input>
+          <ion-input type="number" (input)="totalProductoCalcularPrecio($event.target.value,item)" value={{item.precioNuevo}}></ion-input>
         </ion-col>
         <ion-col class="itemDinero">
           <span>$</span>
           <ion-input value="{{item.totalPagarPorProducto}}"></ion-input>
         </ion-col>
         <ion-col>
-          <button type="number" (click)="eliminarProducto(item)" class="btnCancelar">Eliminar</button>
+          <button  (click)="eliminarProducto(item)" class="btnCancelar">Eliminar</button>
         </ion-col>
       </ion-row>
     </ion-grid>
