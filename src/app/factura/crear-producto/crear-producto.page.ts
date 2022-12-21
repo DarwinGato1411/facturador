@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router,  ActivatedRoute} from '@angular/router';
 import { FormControl, FormControlName, FormGroup } from '@angular/forms';
 import { ConeccionapiService } from 'src/app/coneccionapi.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-crear-producto',
@@ -10,16 +11,22 @@ import { ConeccionapiService } from 'src/app/coneccionapi.service';
 })
 export class CrearProductoPage implements OnInit {
 
+  estado;
   fechaActual = () => {
     const fecha = new Date();
     const dia = fecha.getDate();
+    let diaF=""+dia
+    if(dia<10){
+      diaF=`0${dia}`
+    }
     const mes = fecha.getMonth() + 1
     const anio = fecha.getFullYear()
-    return `${anio}-${mes}-${dia}`
+    return `${anio}-${mes}-${diaF}`
   }
 
 
   producto = new FormGroup({
+    idProducto: new FormControl(),
     prodCodigo: new FormControl(''),
     prodNombre: new FormControl(''),
     prodAbreviado: new FormControl('S/N'),
@@ -54,9 +61,35 @@ export class CrearProductoPage implements OnInit {
     prodPorcentajeIce: new FormControl(0)
   })
 
-  constructor(private router: Router, private cnx: ConeccionapiService) { }
+  constructor(private router: Router,private route: ActivatedRoute, private cnx: ConeccionapiService,) { }
 
   ngOnInit() {
+    this.estado = this.route.snapshot.paramMap.get('estado');
+    if(this.estado==="Editar"){
+      let {idProducto,
+        prodEsproducto,
+        prodGrabaIva,
+        prodFechaRegistro,
+        prodIva,
+        prodCodigo,
+        prodNombre,
+        pordCostoCompra,
+        pordCostoVentaRef,
+        pordCostoVentaFinal}= JSON.parse(localStorage.getItem('productoEditar'))
+
+        this.producto.controls.idProducto.setValue(idProducto)
+        this.producto.controls.prodEsproducto.setValue(prodEsproducto)
+        this.producto.controls.prodGrabaIva.setValue(prodGrabaIva)
+        this.producto.controls.prodFechaRegistro.setValue(prodFechaRegistro)
+        this.producto.controls.prodIva.setValue(prodIva)
+        this.producto.controls.prodCodigo.setValue(prodCodigo)
+        this.producto.controls.prodNombre.setValue(prodNombre)
+        this.producto.controls.pordCostoCompra.setValue(pordCostoCompra)
+        this.producto.controls.pordCostoVentaRef.setValue(pordCostoVentaRef)
+        this.producto.controls.pordCostoVentaFinal.setValue(pordCostoVentaFinal)
+        
+    }
+
   }
 
   compraIVA() {
@@ -69,11 +102,37 @@ export class CrearProductoPage implements OnInit {
 
   crearProducto() {
     let codTipoambiente = localStorage.getItem("codTipoambiente")
-    let producto = { ...this.producto.value, 
-      codTipoambiente: { "codTipoambiente": codTipoambiente }
+    let {prodCodigo,pordCostoVentaFinal,prodNombre} =this.producto.controls
+    
+      if(prodCodigo.value===""){
+        Swal.fire({
+          icon: 'warning',
+          text: 'Por favor ingresar un código para el producto',
+          timer: 3000
+        })
+      }else if(pordCostoVentaFinal.value===0){
+        Swal.fire({
+          icon: 'success',
+          text: 'Por favor ingresar el pvp',
+          timer: 3000
+        })
+      }else{
+        let producto = { ...this.producto.value, 
+          codTipoambiente: { "codTipoambiente": codTipoambiente },
+          prodNombre:(this.producto.controls.prodNombre.value).toUpperCase()
+        }
+        console.log(JSON.stringify( producto))
+        this.cnx.crearProducto(producto)
+      }
+  }
+
+  capturarIVA(iva){
+    let { prodIva } = this.producto.controls 
+    if(iva==="true") {
+      prodIva.setValue("12")
+    }else{
+      prodIva.setValue("0")
     }
-    console.log(JSON.stringify( producto))
-    this.cnx.crearProducto(producto)
   }
 
 

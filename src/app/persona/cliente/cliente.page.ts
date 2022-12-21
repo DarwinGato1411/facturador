@@ -28,7 +28,7 @@ export class ClientePage implements OnInit {
 
   handleChangeProd(event) {
   
-    const query = event.target.value;
+    const query = event.target.value.toUpperCase();
     this.buscarclientes(query, this.codTipoambiente)
 
   }

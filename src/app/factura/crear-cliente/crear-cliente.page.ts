@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router,  ActivatedRoute} from '@angular/router';
 import { ConeccionapiService } from 'src/app/coneccionapi.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-crear-cliente',
@@ -70,19 +71,31 @@ export class CrearClientePage implements OnInit {
 
   guardarDatos() {
     let codTipoambiente = localStorage.getItem("codTipoambiente")
-    let cliente = {
-      
-      ...this.cliente.value,
-      cliNombre: (this.cliente.controls.cliNombre.value).toUpperCase(),
-      cliRazonSocial: (this.cliente.controls.cliNombre.value).toUpperCase(),
-      codTipoambiente: { "codTipoambiente": codTipoambiente },
-      idTipoIdentificacion: {
-        idTipoIdentificacion: this.cliente.controls.idTipoIdentificacion.value,
-      },
-      
-    }
-    this.cnx.crearCliente(cliente)
+    let {cliCedula,ciudad,cliNombre,cliTelefono,cliMovil,cliDireccion,cliCorreo} =this.cliente.controls
 
-    
+    if(cliCedula.value===''||
+    ciudad.value===''||
+    cliNombre.value===''||
+    cliTelefono.value===''||
+    cliMovil.value===''||
+    cliDireccion.value===''||
+    cliCorreo.value===''){
+      Swal.fire({
+        icon: 'warning',
+        text: 'Por favor verifique que todos los campos esten llenos',
+        timer: 3000
+      })
+    }else{
+      let cliente = {
+        ...this.cliente.value,
+        cliNombre: (this.cliente.controls.cliNombre.value).toUpperCase(),
+        cliRazonSocial: (this.cliente.controls.cliNombre.value).toUpperCase(),
+        codTipoambiente: { "codTipoambiente": codTipoambiente },
+        idTipoIdentificacion: {
+          idTipoIdentificacion: this.cliente.controls.idTipoIdentificacion.value,
+        },
+      }
+      this.cnx.crearCliente(cliente)
+    }
   }
 }

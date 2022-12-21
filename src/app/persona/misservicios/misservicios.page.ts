@@ -34,13 +34,12 @@ export class MisserviciosPage implements OnInit {
 
 
   public eliminarservicios(idOfertaServicio) {
-
     this.eliminarservicio(idOfertaServicio, this.codTipoambiente);
 
   }
 
   handleChangeProd(event) {
-    const query = event.target.value;
+    const query = event.target.value.toUpperCase();
     this.buscarproducto(query, this.codTipoambiente)
   }
 
@@ -117,35 +116,12 @@ export class MisserviciosPage implements OnInit {
   }
 
   /*OBTENEMOS LOS DATOS DEL API REST*/
-  async modificar(idProducto) {
-
-    const loading = await this.loadingController.create({
-      message: 'Verificando',
-    });
-    loading.present();
-    //
-
-    this.cnx.eliminarservicio(idProducto, idProducto).subscribe(
-      (ok: any) => {
-        this.buscarproducto(this.descripcion, this.codTipoambiente)
-        //  this.listaServicios = ok;
-        loading.dismiss();
-
-
-        console.log(ok);
-        //   this.router.navigateByUrl('tabprincipal');
-      },
-      error => {
-        loading.dismiss();
-        console.log(JSON.stringify(error));
-        alert(JSON.stringify(error));
-        this.presentAlert('Error de datos ....');
-      }
-
-    );
+  modificar(producto) {
+    localStorage.setItem("productoEditar",JSON.stringify(producto))
+    this.router.navigateByUrl(`crear-producto/Editar`);
   }
   crearProducto(){
-    this.router.navigateByUrl(`crear-producto`);
+    this.router.navigateByUrl(`crear-producto/Crear`);
   }
 
 }

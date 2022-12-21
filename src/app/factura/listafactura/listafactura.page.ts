@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { ConeccionapiService } from 'src/app/coneccionapi.service';
+import { FormControl, FormControlName, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-listafactura',
@@ -13,11 +14,37 @@ export class ListafacturaPage implements OnInit {
   codTipoambiente;
   descripcion = "";
 
+  fechaActual = () => {
+    const fecha = new Date();
+    const dia = fecha.getDate();
+    let diaF = "" + dia
+    if (dia < 10) {
+      diaF = `0${dia}`
+    }
+    const mes = fecha.getMonth() + 1
+    const anio = fecha.getFullYear()
+    return `${anio}-${mes}-${diaF}`
+  }
+
+  formatearFecha = (fechaInicio) => {
+    const fecha = new Date(fechaInicio);
+    const dia = fecha.getDate();
+    let diaF = "" + dia
+    if (dia < 10) {
+      diaF = `0${dia}`
+    }
+    const mes = fecha.getMonth() + 1
+    const anio = fecha.getFullYear()
+    return `${anio}-${mes}-${diaF}`
+  }
+
+  fechaInicio = new FormControl(this.fechaActual())
+  fechaFinal = new FormControl(this.fechaActual())
+
   constructor(public alertController: AlertController,
     private loadingController: LoadingController,
-    private cnx: ConeccionapiService) { 
+    private cnx: ConeccionapiService) {
     this.codTipoambiente = localStorage.getItem("codTipoambiente");
-    console.log("this.codTipoambiente",this.codTipoambiente)
     this.buscarfacturas(this.descripcion, this.codTipoambiente)
 
   }
@@ -26,47 +53,42 @@ export class ListafacturaPage implements OnInit {
   }
 
 
-/*OBTENEMOS LOS DATOS DEL API REST*/
-async buscarfacturas(descripcion, codTipoambiente) {
-
-  /*const loading = await this.loadingController.create({
-    message: 'Verificando',
-  });
-  loading.present();*/
-  //
-
-  this.cnx.buscarfacturas(descripcion,codTipoambiente).subscribe(
-    (ok: any) => {
-
-      this.listafacturas = ok;
-    //  loading.dismiss();
+  /*OBTENEMOS LOS DATOS DEL API REST*/
+  async buscarfacturas(descripcion, codTipoambiente) {
 
 
-      console.log(ok);
-      //   this.router.navigateByUrl('tabprincipal');
-    },
-    error => {
-     // loading.dismiss();
-      console.log(JSON.stringify(error));
-      alert(JSON.stringify(error));
-      this.presentAlert('Error de datos ....');
-    }
+    this.cnx.buscarfacturas(descripcion, codTipoambiente, this.formatearFecha(this.fechaInicio.value), this.fechaFinal.value).subscribe(
+      (ok: any) => {
 
-  );
+        this.listafacturas = ok;
+      },
+      error => {
+        // loading.dismiss();
+        console.log(JSON.stringify(error));
+        alert(JSON.stringify(error));
+        this.presentAlert('Error de datos ....');
+      }
 
-}
+    );
 
-async presentAlert(mensaje) {
-  const alert = await this.alertController.create({
-    cssClass: 'my-custom-class',
-    header: 'Mi app',
-    message: mensaje,
-    buttons: ['OK']
-  });
+  }
 
-  await alert.present();
-}
+  async presentAlert(mensaje) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Mi app',
+      message: mensaje,
+      buttons: ['OK']
+    });
 
+    await alert.present();
+  }
+
+
+  buscarFacturaPorFecha() {
+    this.codTipoambiente = localStorage.getItem("codTipoambiente");
+    this.buscarfacturas(this.descripcion, this.codTipoambiente)
+  }
 
 
 }

@@ -1,7 +1,6 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Mis productos</ion-title>
-    
   </ion-toolbar>
 </ion-header>
 
@@ -12,31 +11,31 @@
 
   <ion-item *ngFor="let usu of listaproductos">
 
-  
+
 
     <ion-card style=" width: 100% !important;">
       <ion-item lines="inset">
-    
+
         <ion-text>
 
           <p>
-           Codigo: {{usu.prodCodigo}}
+            Codigo: {{usu.prodCodigo}}
           </p>
         </ion-text>
       </ion-item>
- 
+
 
       <!--<img src={{item.usuFotografia}} alt="ion">-->
       <ion-card-header>
-       Descripcion: <ion-card-title>{{usu.prodNombre}}</ion-card-title>
+        Descripcion: <ion-card-title>{{usu.prodNombre}}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <ion-row>
-          
-          <ion-col center text-center >
-       Precio: {{usu.pordCostoVentaFinal}}
-       </ion-col>
-          <ion-col center text-center >
+
+          <ion-col center text-center>
+            Precio: {{usu.pordCostoVentaFinal}}
+          </ion-col>
+          <ion-col center text-center>
             Graba IVA: {{usu.prodGrabaIva?'SI':'NO'}}
           </ion-col>
         </ion-row>
@@ -44,18 +43,17 @@
 
       <ion-footer>
         <ion-row>
-          
-          <ion-col center text-center >
+
+          <ion-col center text-center>
             <!-- <ion-button expand="block" color="primary" (click)="modificar(item.turTourvirtual)">              
               <ion-icon name="information-circle-outline"></ion-icon>
               <div>Editar</div>
             </ion-button> -->
           </ion-col>
-          <ion-col center text-center >
-           
-            <ion-button  (click)="modificar(usu)" 
-            target="_blank" expand="block" >
-              <ion-icon  name="logo-whatsapp" ></ion-icon>
+          <ion-col center text-center>
+
+            <ion-button (click)="modificar(usu)" target="_blank" expand="block">
+              <ion-icon name="logo-whatsapp"></ion-icon>
               <div> Editar</div>
             </ion-button>
           </ion-col>
@@ -73,7 +71,7 @@
     </ion-avatar> -->
 
 
-    
+
   </ion-item>
   <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button>

@@ -12,12 +12,12 @@ export class ConeccionapiService {
   URLAPI;
   ipServidor
 
-  constructor(public http: HttpClient,  private router: Router) {
-    this.ipServidor=localStorage.getItem('ipservidor')
+  constructor(public http: HttpClient, private router: Router) {
+    this.ipServidor = localStorage.getItem('ipservidor')
     this.URLAPI = `http://${this.ipServidor}/api/`
   }
   ngOnInit() {
-    
+
   }
   buscarproductos(descripcion, codTipoambiente) {
     let tipo = 'productos/';
@@ -113,9 +113,9 @@ export class ConeccionapiService {
 
   /* LOGIN*/
   login(nombre, password) {
-    this.ipServidor=localStorage.getItem('ipservidor')
+    this.ipServidor = localStorage.getItem('ipservidor')
     this.URLAPI = `http://${this.ipServidor}/api/`
-    
+
     let tipo = 'login/';
 
     console.log(nombre)
@@ -125,15 +125,53 @@ export class ConeccionapiService {
       usuLogin: nombre,
       usuPassword: password
     };
-    console.log("urlServer ---------- ", urlServer)
-    //ahi funciona pero si le agrego eñ httOptions no reconoce
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+    fetch(urlServer, {
+      method: "POST",
+      body: JSON.stringify(postParam),
+      headers: { "Content-type": "application/json;charset=UTF-8" }
+    })
+      .then(res => {
+        console.log("estatus creacion producto", res.status)
+        if (res.status === 200) {
+          Swal.fire({
+            icon: 'success',
+            title: 'OK!',
+            text: 'Credenciales verificadas con éxito',
+            timer: 1500
+          })
+          return res.json()
+        } else if (res.status === 500) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Algo salió mal',
+            text: 'Por favor revise las credenciales',
+            timer: 1500
+          })
+        }
       })
-    };
-    return this.http.post(urlServer, postParam, httpOptions);
+      .then(ok => {
+        let usuario = ok
+        console.log("LOGIN ", ok);
+        let idActividad = null;
+        if (usuario.idActividad != null) {
+          idActividad = usuario.idActividad.idTipoActividad
+        }
+        localStorage.setItem("idUsuario", usuario.idUsuario);
+        localStorage.setItem("usuario", usuario.usuLogin);
+        localStorage.setItem("password", usuario.usuPassword)
+
+        localStorage.setItem("codTipoambiente", usuario.codTipoAmbiente);
+        localStorage.setItem("nombreperfil", usuario.usuNombre);
+        this.router.navigateByUrl('principal');
+      })
+      .catch(err => Swal.fire({
+        icon: 'warning',
+        title: 'Algo salió mal',
+        text: err,
+        timer: 1500
+      }))
   }
+
 
   /*CREAR USSUARIO*/
   crearusuario(nombre, password, idParroquia, tipoemp) {
@@ -347,24 +385,21 @@ export class ConeccionapiService {
 
 
   /*SERVICIO PARA clientes*/
-  buscarfacturas(descripcion, codTipoambiente) {
+  buscarfacturas(descripcion, codTipoambiente,fechaincio,fechaFinal) {
 
     //ahi esta
     let tipo = 'facturas/';
-    console.log("BANDERA ......")
-    /* if (bandera != 'prod') {
-       tipo = 'servicios/';
-     }*/
+    
     console.log(descripcion)
     const urlServer = this.URLAPI + tipo;
 
     const postParam = {
       prodNombre: descripcion,
-      codTipoambiente: codTipoambiente
+      codTipoambiente: codTipoambiente,
+      fin: fechaFinal,
+      inicio: fechaincio,
     };
-    console.log("urlServer ---------- ", urlServer)
-    console.log("postParam ---------- ", postParam)
-    //ahi funciona pero si le agrego eñ httOptions no reconoce
+    console.log(postParam)
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -409,7 +444,7 @@ export class ConeccionapiService {
             text: 'Cliente creado con exito',
             timer: 1500
           })
-          this.router.navigateByUrl('cliente');
+          this.router.navigateByUrl('principal/misclientes');
           return response.json()
         }
       })
@@ -417,7 +452,7 @@ export class ConeccionapiService {
       .catch(err => console.log(err))
   }
 
-  crearProducto(producto){
+  crearProducto(producto) {
     const tipo = 'productos-crear-editar/'
     const urlServer = this.URLAPI + tipo;
     fetch(urlServer, {
@@ -434,6 +469,8 @@ export class ConeccionapiService {
             text: 'Producto creado con exito',
             timer: 1500
           })
+          this.router.navigateByUrl('principal/misservicio');
+          
           return response.json()
         }
       })

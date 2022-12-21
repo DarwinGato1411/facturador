@@ -1,7 +1,8 @@
 {
   "name": "Facturador",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
   "type": "angular"
 }

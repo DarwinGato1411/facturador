@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Crear Producto</ion-title>
+    <ion-title>{{estado}} Producto</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="principal/misservicio"></ion-back-button>
     </ion-buttons>
@@ -20,9 +20,9 @@
       </div>
       <div class="contenedorInput">
         <ion-label>Declaración:</ion-label>
-        <select formControlName="prodGrabaIva" name="select">
-          <option value=true selected>Graba IVA</option>
-          <option value=false>Sin Iva</option>
+        <select  formControlName="prodGrabaIva" (click)="capturarIVA($event.target.value)" name="select">
+          <option  value=true selected>Graba IVA</option>
+          <option  value=false>Sin Iva</option>
         </select>
       </div>
       <div class="contenedorInput">
@@ -36,7 +36,7 @@
       </div>
       <div class="contenedorInput">
         <ion-label>Código:</ion-label>
-        <input type="text" formControlName="prodCodigo">
+        <input type="text" formControlName="prodCodigo" required>
       </div>
       <div class="contenedorInput">
         <ion-label>Nombre Producto:</ion-label>
@@ -55,7 +55,7 @@
 
       <div class="contenedorInput">
         <ion-label>Precio pvp:</ion-label>
-        <input type="number" formControlName="pordCostoVentaFinal">
+        <input type="number" formControlName="pordCostoVentaFinal" required>
       </div>
 
       <ion-button type="submit">Guardar</ion-button>

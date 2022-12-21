@@ -5,7 +5,22 @@
 </ion-header>
 
 <ion-content>
+
+  <div class="fechaBusqueda">
+    <ion-item>
+      <ion-label>Inicio:</ion-label>
+      <ion-datetime displayFormat="YYYY MM DD" [formControl]="fechaInicio"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Fin:</ion-label>
+      <ion-datetime displayFormat="YYYY MM DD" [formControl]="fechaFinal"></ion-datetime>
+    </ion-item>
+    <ion-button (click)="buscarFacturaPorFecha()">Buscar Factura</ion-button>
+  </div>
+
+
   <ion-item *ngFor="let usu of listafacturas">
+
     <ion-card style=" width: 100% !important;">
       <ion-item lines="inset">
         <h3 style="font-weight:bold"> {{usu.idCliente.cliNombre}}</h3>
@@ -16,9 +31,8 @@
       <!--<img src={{item.usuFotografia}} alt="ion">-->
       <ion-card-header>
         <ion-row>
-
-        <h3 style="font-weight:bold"> {{usu.idCliente.cliNombre}}</h3>
-      </ion-row>
+          <h3 style="font-weight:bold"> {{usu.idCliente.cliNombre}}</h3>
+        </ion-row>
         <ion-row>
 
           <h3 style="font-weight:bold"> Factura Nº: {{usu.facNumeroText}}</h3>
@@ -31,31 +45,32 @@
         <p> Clave de acceso: {{usu.facClaveAcceso}}</p>
         {{usu.idCliente.idTipoIdentificacion.tidNombre}} :
         {{usu.idCliente.cliCedula}}
-        
+
         <ion-row>
-          <h4 style="font-weight:bold">  Correo: </h4> {{usu.idCliente.cliCorreo}}
+          <h4 style="font-weight:bold"> Correo: </h4> {{usu.idCliente.cliCorreo}}
         </ion-row>
         <ion-row>
 
-          <h4 style="font-weight:bold"> Fecha emisión:  </h4> {{usu.facFecha}}
+          <h4 style="font-weight:bold"> Fecha emisión: </h4> {{usu.facFecha}}
         </ion-row>
         <ion-row>
-          <h4 style="font-weight:bold">   Fecha autorización:  </h4> {{usu.facFechaAutorizacion | date: 'yyyy-MM-dd'}} 
+          <h4 style="font-weight:bold"> Fecha autorización: </h4> {{usu.facFechaAutorizacion | date: 'yyyy-MM-dd'}}
         </ion-row>
         <ion-row>
-          <h4 style="font-weight:bold">    Estado:  </h4> {{usu.estadosri}}
+          <h4 style="font-weight:bold"> Estado: </h4> {{usu.estadosri}}
         </ion-row>
 
         <ion-row>
           <ion-col center text-center>
-          
+
           </ion-col>
           <ion-col style="text-align: end;" text-center>
-            <h4 style="font-weight:bold">    TOTAL FACTURA:  </h4> <h1>{{usu.facTotal}}</h1>
+            <h4 style="font-weight:bold"> TOTAL FACTURA: </h4>
+            <h1>{{usu.facTotal}}</h1>
           </ion-col>
 
         </ion-row>
-       
+
       </ion-card-content>
 
       <ion-footer>
