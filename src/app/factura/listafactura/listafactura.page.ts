@@ -90,5 +90,16 @@ export class ListafacturaPage implements OnInit {
     this.buscarfacturas(this.descripcion, this.codTipoambiente)
   }
 
+  autorizarFactura(factu){
+    this.codTipoambiente = localStorage.getItem("codTipoambiente");
+    
+    let facturaAu={
+      tipoambiente:this.codTipoambiente,
+      numero:factu.facNumeroText
+    }
+    console.log(facturaAu)
+     this.cnx.facturaAutorizar(facturaAu)
+  }
+
 
 }

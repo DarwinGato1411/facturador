@@ -24,6 +24,17 @@ export class FacturarPage implements OnInit {
   listaproductos;
   carritoProducto = [];
 
+  fechaActual = () => {
+    const fecha = new Date();
+    const dia = fecha.getDate();
+    let diaF = "" + dia
+    if (dia < 10) {
+      diaF = `0${dia}`
+    }
+    const mes = fecha.getMonth() + 1
+    const anio = fecha.getFullYear()
+    return `${anio}-${mes}-${diaF}`
+  }
   //construccion json factura
   usuario: any;
   codTipoambiente;
@@ -261,7 +272,7 @@ export class FacturarPage implements OnInit {
 
     let modeloFactura = {
       factura: {
-        facFecha: '2022-12-01',
+        facFecha: this.fechaActual(),
         facSubtotal: factSubtotal,
         facIva: totalFactIva,
         facTotal: factSubtotal + totalFactIva,

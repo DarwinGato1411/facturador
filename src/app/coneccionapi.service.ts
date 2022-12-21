@@ -385,11 +385,11 @@ export class ConeccionapiService {
 
 
   /*SERVICIO PARA clientes*/
-  buscarfacturas(descripcion, codTipoambiente,fechaincio,fechaFinal) {
+  buscarfacturas(descripcion, codTipoambiente, fechaincio, fechaFinal) {
 
     //ahi esta
     let tipo = 'facturas/';
-    
+
     console.log(descripcion)
     const urlServer = this.URLAPI + tipo;
 
@@ -470,7 +470,42 @@ export class ConeccionapiService {
             timer: 1500
           })
           this.router.navigateByUrl('principal/misservicio');
+
+          return response.json()
+        }
+      })
+      .then(json => console.log(json))
+      .catch(err => console.log(err))
+  }
+
+  async facturaAutorizar(factura) {
+    const tipo = 'facturas-enviar/'
+    const urlServer = this.URLAPI + tipo;
+
+    Swal.fire({
+      icon: 'info',
+      title: 'Verificando factura',
+      text: 'Por favor espere un momento',
+      showConfirmButton: false,
+
+    })
+    await fetch(urlServer, {
+      method: "POST",
+      body: JSON.stringify(factura),
+      headers: { "Content-type": "application/json;charset=UTF-8" }
+    })
+      .then(response => {
+        console.log("estatus creacion producto", response.status)
+        if (response.status === 200) {
+          this.router.navigateByUrl('principal/listafactura');
           
+          Swal.fire({
+            icon: 'success',
+            title: 'ok',
+            text: 'La factura ha sido autorizada',
+            timer: 2000
+          })
+          Swal.close()
           return response.json()
         }
       })
