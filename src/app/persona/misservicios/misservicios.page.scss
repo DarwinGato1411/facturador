@@ -1,0 +1,56 @@
+.botonFlotante {
+    position: absolute;
+    z-index: 10;
+    bottom: 0;
+    right: 0;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    background-color: #3880FC;
+    font-size: 30px;
+}
+
+ion-back-button {
+    color: white !important;
+
+    span {
+        color: white !important;
+    }
+}
+
+.contenedorCliente {
+    .item-Cliente {
+
+        border-radius: 20px;
+        width: 90%;
+        margin: auto auto 10px auto;
+        background-color: #eee;
+
+        .header {
+            background-color: black;
+            border-radius: 20px 20px 0 0;
+
+            p {
+                margin: 0;
+                color: white;
+                padding: 20px;
+
+            }
+        }
+
+        .content {
+            padding: 20px;
+            p{
+                margin: 0 0 10px 0 ;
+            }
+        }
+
+        .boton {
+            button {
+                border-radius: 0 0 20px 20px;
+            }
+
+        }
+    }
+
+}

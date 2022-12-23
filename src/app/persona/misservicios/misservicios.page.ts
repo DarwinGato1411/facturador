@@ -16,7 +16,7 @@ export class MisserviciosPage implements OnInit {
   codTipoambiente
   listaproductos;
   descripcion = "";
-  
+
   constructor(public alertController: AlertController,
     private loadingController: LoadingController,
     private cnx: ConeccionapiService,
@@ -117,10 +117,10 @@ export class MisserviciosPage implements OnInit {
 
   /*OBTENEMOS LOS DATOS DEL API REST*/
   modificar(producto) {
-    localStorage.setItem("productoEditar",JSON.stringify(producto))
+    localStorage.setItem("productoEditar", JSON.stringify(producto))
     this.router.navigateByUrl(`crear-producto/Editar`);
   }
-  crearProducto(){
+  crearProducto() {
     this.router.navigateByUrl(`crear-producto/Crear`);
   }
 

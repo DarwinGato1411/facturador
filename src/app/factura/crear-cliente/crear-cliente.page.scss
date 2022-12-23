@@ -1,4 +1,10 @@
+ion-back-button {
+    color: white !important;
 
+    span {
+        color: white !important;
+    }
+}
 
 
 ion-content {
@@ -6,11 +12,11 @@ ion-content {
 
     .contenedorFormulario {
         padding: 10px;
-       
+
         display: grid;
 
         .contenedorInput {
-           
+
             margin: auto;
             display: grid;
             width: 100%;
@@ -18,7 +24,9 @@ ion-content {
             margin-bottom: 10px;
             box-sizing: border-box;
             align-items: center;
-            input, select {
+
+            input,
+            select {
                 width: 100%;
                 border-radius: 20px;
                 border-style: none;

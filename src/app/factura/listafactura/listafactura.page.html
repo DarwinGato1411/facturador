@@ -18,73 +18,38 @@
     <ion-button (click)="buscarFacturaPorFecha()">Buscar Factura</ion-button>
   </div>
 
-
-  <ion-item *ngFor="let usu of listafacturas">
-
-    <ion-card style=" width: 100% !important;">
-      <ion-item lines="inset">
-        <h3 style="font-weight:bold"> {{usu.idCliente.cliNombre}}</h3>
-
-      </ion-item>
+  <div class="contenedorCliente">
+    <div class="item-Cliente" *ngFor="let usu of listafacturas">
 
 
-      <!--<img src={{item.usuFotografia}} alt="ion">-->
-      <ion-card-header>
-        <ion-row>
-          <h3 style="font-weight:bold"> {{usu.idCliente.cliNombre}}</h3>
-        </ion-row>
-        <ion-row>
+      <div *ngIf="usu.estadosri==='AUTORIZADO' ; else elseBlock" class="header verde">
+        <p > {{usu.idCliente.cliNombre}}</p>
+        <p > Factura Nº: {{usu.facNumeroText}}</p>
+      </div>
+      <ng-template #elseBlock>
+        <div class="header rojo">
+          <p > {{usu.idCliente.cliNombre}}</p>
+          <p > Factura Nº: {{usu.facNumeroText}}</p>
+        </div>
+      </ng-template>
 
-          <h3 style="font-weight:bold"> Factura Nº: {{usu.facNumeroText}}</h3>
+      <div class="content">
+        <p> <strong> Clave de acceso: </strong> {{usu.facClaveAcceso}}</p>
+        <p> <strong> {{usu.idCliente.idTipoIdentificacion.tidNombre}}:</strong> {{usu.idCliente.cliCedula}} </p>
+        <p> <strong> Correo: </strong> {{usu.idCliente.cliCorreo}}</p>
+        <p ><strong>Fecha emisión:</strong> {{usu.facFecha}}</p>
+        <p > <strong> Fecha autorización:</strong> {{usu.facFechaAutorizacion |
+          date:'yyyy-MM-dd'}}</p>
+        <p ><strong>Estado:</strong> {{usu.estadosri}} </p>
+        <p > <strong> TOTAL FACTURA:</strong> {{usu.facTotal}} </p>
+      </div>
+      <ion-button *ngIf="usu.estadosri!=='AUTORIZADO'" (click)=" autorizarFactura(usu)" target="_blank" expand="block">
+        <ion-icon name="send"></ion-icon>
+        <div>Mandar autorizar SRI</div>
+      </ion-button>
 
-
-        </ion-row>
-
-      </ion-card-header>
-      <ion-card-content>
-        <p> Clave de acceso: {{usu.facClaveAcceso}}</p>
-        {{usu.idCliente.idTipoIdentificacion.tidNombre}} :
-        {{usu.idCliente.cliCedula}}
-
-        <ion-row>
-          <h4 style="font-weight:bold"> Correo: </h4> {{usu.idCliente.cliCorreo}}
-        </ion-row>
-        <ion-row>
-
-          <h4 style="font-weight:bold"> Fecha emisión: </h4> {{usu.facFecha}}
-        </ion-row>
-        <ion-row>
-          <h4 style="font-weight:bold"> Fecha autorización: </h4> {{usu.facFechaAutorizacion | date: 'yyyy-MM-dd'}}
-        </ion-row>
-        <ion-row>
-          <h4 style="font-weight:bold"> Estado: </h4> {{usu.estadosri}}
-        </ion-row>
-
-        <ion-row>
-          <ion-col center text-center>
-
-          </ion-col>
-          <ion-col style="text-align: end;" text-center>
-            <h4 style="font-weight:bold"> TOTAL FACTURA: </h4>
-            <h1>{{usu.facTotal}}</h1>
-          </ion-col>
-
-        </ion-row>
-
-      </ion-card-content>
-
-      <ion-footer>
-        <ion-row>
-          <ion-col center text-center>
-            <ion-button (click)=" autorizarFactura(usu)" target="_blank" expand="block">
-              <ion-icon name="send"></ion-icon>
-              <div> Autorizar</div>
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-footer>
-    </ion-card>
+    </div>
 
 
-  </ion-item>
+  </div>
 </ion-content>

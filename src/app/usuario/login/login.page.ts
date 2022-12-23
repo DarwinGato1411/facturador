@@ -3,7 +3,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { ConeccionapiService } from 'src/app/coneccionapi.service';
-import Swal from 'sweetalert2';
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',

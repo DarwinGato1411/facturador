@@ -1,50 +1,34 @@
-<ion-header >
-  <ion-toolbar>
-    <ion-title ><p>Sistema de facturación electrónica</p></ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <div class="main-content">
+    <div class="contenedorLogo">
+      <div class="logo">
+        <img src="../../../assets/imagenes/logoDF.jpeg" />
+        <div class="texto">
+          <p class="title">DEFACT</p>
+          <p class="subtitle">FACTURACIÓN ELECTRÓNICA MOVIL</p>
+        </div>
+      </div>
+      <p class="secundario">Administrar tus facturas nunca ha sido tan facil!</p>
+    </div>
 
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-
-        <ion-card>
-          <!-- <img alt="Silhouette of mountains" src="../../../assets/imagenes/LogoDefact.JPG" /> -->
-          <ion-card-header>
-            <ion-card-title >
-             
-              <ion-text-center>Administrar tus facturas nunca ha sido tan facil!</ion-text-center>
-              <br>
-              <p>Inicia Sesión</p>
-            </ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-
-
-            <form [formGroup]="loginForm">
-              <ion-item>
-                <ion-icon name="person-outline"></ion-icon>
-                <ion-input formControlName="usuarionombre" placeholder="Usuario" type="text"> </ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-icon name="key-outline"></ion-icon>
-                <ion-input formControlName="password" placeholder="Contraseña" type="password"> </ion-input>
-              </ion-item>
-
-            </form>
-            <ion-button expand="block" (click)="autentificar()" [disabled]="!loginForm.valid">Ingresar</ion-button>
-
-          </ion-card-content>
-
-        </ion-card>
-
-      </ion-col>
-
-    </ion-row>
-
-
-  </ion-grid>
+    <div class="contenedorLogin">
+      <div class="contenedorTexto">
+        <p>Inicia Sesión</p>
+      </div>
+      <div>
+        <form class="contenedorForm" [formGroup]="loginForm">
+          <ion-item>
+            <ion-icon name="person-outline"></ion-icon>
+            <ion-input formControlName="usuarionombre" placeholder="Usuario" type="text"> </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="key-outline"></ion-icon>
+            <ion-input formControlName="password" placeholder="Contraseña" type="password"> </ion-input>
+          </ion-item>
+          <ion-button expand="block" (click)="autentificar()" [disabled]="!loginForm.valid">Ingresar</ion-button>
+        </form>
+      </div>
+    </div>
+  </div>
 
 </ion-content>

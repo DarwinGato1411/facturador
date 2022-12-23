@@ -5,81 +5,29 @@
 </ion-header>
 
 <ion-content>
+  <div class="main-content">
+    <ion-searchbar showCancelButton="focus" [debounce]="1000" (ionChange)="handleChangeProd($event)"
+      placeholder="Buscar un producto "></ion-searchbar>
+    <div class="contenedorCliente">
+      <div class="item-Cliente" *ngFor="let usu of listaproductos">
+        <div class="header">
+          <p>Codigo: {{usu.prodCodigo}}</p>
+        </div>
+        <div class="content">
+          <p> Descripcion: {{usu.prodNombre}}</p>
+          <p>Precio: {{usu.pordCostoVentaFinal}}</p>
+          <p>Graba IVA: {{usu.prodGrabaIva?'SI':'NO'}}</p>
+        </div>
 
-  <ion-searchbar showCancelButton="focus" [debounce]="1000" (ionChange)="handleChangeProd($event)"
-    placeholder="Buscar un producto "></ion-searchbar>
-
-  <ion-item *ngFor="let usu of listaproductos">
-
-
-
-    <ion-card style=" width: 100% !important;">
-      <ion-item lines="inset">
-
-        <ion-text>
-
-          <p>
-            Codigo: {{usu.prodCodigo}}
-          </p>
-        </ion-text>
-      </ion-item>
-
-
-      <!--<img src={{item.usuFotografia}} alt="ion">-->
-      <ion-card-header>
-        Descripcion: <ion-card-title>{{usu.prodNombre}}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-row>
-
-          <ion-col center text-center>
-            Precio: {{usu.pordCostoVentaFinal}}
-          </ion-col>
-          <ion-col center text-center>
-            Graba IVA: {{usu.prodGrabaIva?'SI':'NO'}}
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
-
-      <ion-footer>
-        <ion-row>
-
-          <ion-col center text-center>
-            <!-- <ion-button expand="block" color="primary" (click)="modificar(item.turTourvirtual)">              
-              <ion-icon name="information-circle-outline"></ion-icon>
-              <div>Editar</div>
-            </ion-button> -->
-          </ion-col>
-          <ion-col center text-center>
-
-            <ion-button (click)="modificar(usu)" target="_blank" expand="block">
-              <ion-icon name="logo-whatsapp"></ion-icon>
-              <div> Editar</div>
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-footer>
-    </ion-card>
-    <!-- <ion-avatar slot="start">
-
-      <img (click)="cambiarImagen(usu.idUsuario.usuFotografia)"
-        src="{{usu.idUsuario.usuFotografia}}"
-        *ngIf="usu.idUsuario.usuFotografia" />
-      <img (click)="cambiarImagen(usu.idUsuario.usuFotografia)"
-        src="../../../assets/imagenes/servicios.png"
-        *ngIf="!usu.idUsuario.usuFotografia" />
-    </ion-avatar> -->
-
-
-
-  </ion-item>
-  <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab> -->
+        <ion-button (click)="modificar(usu)" target="_blank" expand="block">
+          <ion-icon name="pencil"></ion-icon>
+          <div> Editar</div>
+        </ion-button>
+      </div>
+    </div>
+  </div>
 </ion-content>
-
+x
 <ion-fab (click)="crearProducto()" vertical="bottom" horizontal="end" slot="fixed">
   <ion-fab-button>
     <ion-icon name="add"></ion-icon>

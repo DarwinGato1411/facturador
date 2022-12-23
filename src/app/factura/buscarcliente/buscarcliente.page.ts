@@ -54,6 +54,12 @@ export class BuscarclientePage implements OnInit {
     );
 
   }
+  handleChangeProd(event) {
+  
+    const query = event.target.value.toUpperCase();
+    this.buscarclientes(query, this.codTipoambiente)
+
+  }
 
   async presentAlert(mensaje) {
     const alert = await this.alertController.create({

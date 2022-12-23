@@ -1,3 +1,11 @@
+
+ion-back-button{
+    color: white !important;
+    span{
+    color: white !important;
+    }
+}
+
 .footer {
     background-color: white;
     border-radius: 20px 20px 0 0;
@@ -5,7 +13,7 @@
     height: 10%;
     padding: 10px;
     display: grid;
-    grid-template-columns: 20% 20% 20% 40%;
+    grid-template-columns: 17.5% 17.5% 17.5% 17.5% 30%;
 
     .total{
         display: grid;

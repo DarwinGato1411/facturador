@@ -420,7 +420,18 @@ export class ConeccionapiService {
     })
       .then(response => {
         console.log("estatus creacion factura", response.status)
-        return response.json()
+        if(response.status===200){
+          Swal.fire({
+            icon: 'success',
+            title: 'ok!',
+            text: 'Factura creada con éxito',
+            timer: 1500
+          })
+          
+          this.router.navigateByUrl('principal/iniciofactura');
+          return response.json()
+        }
+       
       })
       .then(json => console.log(json))
       .catch(err => console.log(err))
@@ -496,16 +507,16 @@ export class ConeccionapiService {
     })
       .then(response => {
         console.log("estatus creacion producto", response.status)
-        if (response.status === 200) {
-          this.router.navigateByUrl('principal/listafactura');
-          
+        Swal.close()
+        if (response.status === 200) {   
           Swal.fire({
             icon: 'success',
             title: 'ok',
             text: 'La factura ha sido autorizada',
             timer: 2000
           })
-          Swal.close()
+         
+          this.router.navigateByUrl('principal/listafactura');
           return response.json()
         }
       })
