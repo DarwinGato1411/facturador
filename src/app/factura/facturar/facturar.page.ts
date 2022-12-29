@@ -17,8 +17,8 @@ export class FacturarPage implements OnInit {
   descripcion = "";
 
   total = 0;
-  iva=0;
-  desc=0;
+  iva = 0;
+  desc = 0;
   totalPorProducto = 0;
 
   listaproductos;
@@ -73,7 +73,7 @@ export class FacturarPage implements OnInit {
     const query = event.target.value;
     this.buscarproducto(query, this.codTipoambiente)
   }
-  
+
   /*OBTENEMOS LOS DATOS DEL API REST*/
   async buscarproducto(descripcion, codTipoambiente) {
 
@@ -144,12 +144,12 @@ export class FacturarPage implements OnInit {
 
   calcularTotal() {
     this.total = 0;
-    this.iva=0;
-    this.desc=0;
+    this.iva = 0;
+    this.desc = 0;
     this.carritoProducto.forEach(producto => {
-      this.total =Number((this.total + producto.totalPagarPorProducto).toFixed(2))
-      this.iva=Number((this.iva+producto.detIva).toFixed(2))
-      this.desc=Number((this.desc+((producto.pordCostoVentaFinal-producto.detTotal)*producto.detCantidad)).toFixed(2))
+      this.total = Number((this.total + producto.totalPagarPorProducto).toFixed(2))
+      this.iva = Number((this.iva + producto.detIva).toFixed(2))
+      this.desc = Number((this.desc + ((producto.pordCostoVentaFinal - producto.detTotal) * producto.detCantidad)).toFixed(2))
     });
   }
 
@@ -177,7 +177,7 @@ export class FacturarPage implements OnInit {
         icon: 'error',
         title: 'Oops...',
         text: 'El precio ingresado no debe superar al precio del producto',
-        footer: '<a href="">Why do I have this issue?</a>'
+
       })
     }
     this.calcularTotal()
@@ -233,8 +233,6 @@ export class FacturarPage implements OnInit {
   }
 
   facturar() {
-    const hoy = new Date();
-    let fechaformateada = this.formatearFecha(hoy, 'yyyy-mm-dd')
     let totalFactIva = 0;
     let formatearCarrito = [...this.carritoProducto]
     let factSubtotal = 0;
@@ -242,80 +240,78 @@ export class FacturarPage implements OnInit {
     let facTotalBaseGravaba = 0;
     let facTotalBaseCero = 0;
 
-    formatearCarrito.forEach(element => {
-      let idProducto = element.idProducto
-      totalFactIva = totalFactIva + element.detIva;
-      factSubtotal = factSubtotal + element.detSubtotaldescuentoporcantidad
-      facDescuento = facDescuento + element.detTotaldescuento
+    if (formatearCarrito.length===0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'El carrito no debe estar vacio.',
+        timer:1500
+      })
+    } else{
+      formatearCarrito.forEach(element => {
+        let idProducto = element.idProducto
+        totalFactIva = totalFactIva + element.detIva;
+        factSubtotal = factSubtotal + element.detSubtotaldescuentoporcantidad
+        facDescuento = facDescuento + element.detTotaldescuento
 
-      if (element.detIva === 0) {
-        facTotalBaseCero = facTotalBaseCero + element.detSubtotaldescuentoporcantidad
+        if (element.detIva === 0) {
+          facTotalBaseCero = facTotalBaseCero + element.detSubtotaldescuentoporcantidad
 
-      } else {
-        facTotalBaseGravaba = facTotalBaseGravaba + element.detSubtotaldescuentoporcantidad
-      }
-
-
-
-      element.detDescripcion = element.prodNombre
-      element.detCodIva = "2"
-      // element.detCodPorcentaje = "2"
-
-      element.detValorIce = 0
-      element.detTipoVenta = 'NORMAL'
-      element.detCodTipoVenta = "0"
-      element.idProducto = { "idProducto": idProducto }
-
-
-      // this.eliminarCampos(element)
-    })
-
-    let modeloFactura = {
-      factura: {
-        facFecha: this.fechaActual(),
-        facSubtotal: factSubtotal,
-        facIva: totalFactIva,
-        facTotal: factSubtotal + totalFactIva,
-        facTotalBaseGravaba: facTotalBaseGravaba,
-        facTotalBaseCero: facTotalBaseCero,
-        facDescuento: facDescuento,
-
-        facEstado: "PA",
-        facTipo: "FACT",
-        facAbono: 0,
-        facSaldo: 0,
-        facDescripcion: "",
-        facNumProforma: 0,
-        tipodocumento: "01",
-        puntoemision: this.usuario.codTipoambiente.amPtoemi,
-        codestablecimiento: "001",
-        facCodIce: "3",
-        facCodIva: "2",
-        codigoPorcentaje: "2",
-        facPorcentajeIva: "12",
-        facMoneda: "DOLAR",
-        facPlazo: 15,
-        facSubsidio: 0,
-        facSaldoAmortizado: 0,
-        facUnidadTiempo: "DIAS",
-        facNumNotaEntrega: 0,
-        faConSinGuia: "SG",
-        facValorIce: 0,
-        idCliente: {
-          idCliente: this.usuario.idCliente
-        },
-        cod_tipoambiente: {
-          codTipoambiente: this.codTipoambiente
+        } else {
+          facTotalBaseGravaba = facTotalBaseGravaba + element.detSubtotaldescuentoporcantidad
         }
-      },
-      detalleFactura: formatearCarrito
+        element.detDescripcion = element.prodNombre
+        element.detCodIva = "2"
+        element.detValorIce = 0
+        element.detTipoVenta = 'NORMAL'
+        element.detCodTipoVenta = "0"
+        element.idProducto = { "idProducto": idProducto }
+      })
 
+      let modeloFactura = {
+        factura: {
+          facFecha: this.fechaActual(),
+          facSubtotal: factSubtotal,
+          facIva: totalFactIva,
+          facTotal: factSubtotal + totalFactIva,
+          facTotalBaseGravaba: facTotalBaseGravaba,
+          facTotalBaseCero: facTotalBaseCero,
+          facDescuento: facDescuento,
+
+          facEstado: "PA",
+          facTipo: "FACT",
+          facAbono: 0,
+          facSaldo: 0,
+          facDescripcion: "",
+          facNumProforma: 0,
+          tipodocumento: "01",
+          puntoemision: this.usuario.codTipoambiente.amPtoemi,
+          codestablecimiento: "001",
+          facCodIce: "3",
+          facCodIva: "2",
+          codigoPorcentaje: "2",
+          facPorcentajeIva: "12",
+          facMoneda: "DOLAR",
+          facPlazo: 15,
+          facSubsidio: 0,
+          facSaldoAmortizado: 0,
+          facUnidadTiempo: "DIAS",
+          facNumNotaEntrega: 0,
+          faConSinGuia: "SG",
+          facValorIce: 0,
+          idCliente: {
+            idCliente: this.usuario.idCliente
+          },
+          cod_tipoambiente: {
+            codTipoambiente: this.codTipoambiente
+          }
+        },
+        detalleFactura: formatearCarrito
+
+      }
+      this.cnx.crearFactura(modeloFactura)
+      this.carritoProducto = [];
     }
-    console.log(modeloFactura)
-    console.log(JSON.stringify(modeloFactura))
-
-    this.cnx.crearFactura(modeloFactura)
-    this.carritoProducto = [];
   }
 
   eliminarCampos(item) {
