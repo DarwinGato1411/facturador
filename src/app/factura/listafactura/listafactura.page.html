@@ -1,6 +1,10 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Lista Facturas</ion-title>
+    <ion-buttons slot="end">
+      <ion-button style="background-color: black; color: white;border-radius: 20px;"
+        href="tabprincipal/login">Salir</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -21,34 +25,44 @@
   <div class="contenedorCliente">
     <div class="item-Cliente" *ngFor="let usu of listafacturas">
 
+      <div [ngSwitch]=usu.estadosri>
+        <div class="header autorizar" *ngSwitchCase="'AUTORIZADO'">
 
-      <div *ngIf="usu.estadosri==='AUTORIZADO' ; else elseBlock" class="header verde">
-        <p > {{usu.idCliente.cliNombre}}</p>
-        <p > Factura Nº: {{usu.facNumeroText}}</p>
-      </div>
-      <ng-template #elseBlock>
-        <div class="header rojo">
-          <p > {{usu.idCliente.cliNombre}}</p>
-          <p > Factura Nº: {{usu.facNumeroText}}</p>
+          <p> {{usu.idCliente.cliNombre}}</p>
+          <p> Factura Nº: {{usu.facNumeroText}}</p>
         </div>
-      </ng-template>
+        <div class="header pendiente" *ngSwitchCase="'PENDIENTE'">
 
-      <div class="content">
-        <p> <strong> Clave de acceso: </strong> {{usu.facClaveAcceso}}</p>
-        <p> <strong> {{usu.idCliente.idTipoIdentificacion.tidNombre}}:</strong> {{usu.idCliente.cliCedula}} </p>
-        <p> <strong> Correo: </strong> {{usu.idCliente.cliCorreo}}</p>
-        <p ><strong>Fecha emisión:</strong> {{usu.facFecha}}</p>
-        <p > <strong> Fecha autorización:</strong> {{usu.facFechaAutorizacion |
-          date:'yyyy-MM-dd'}}</p>
-        <p ><strong>Estado:</strong> {{usu.estadosri}} </p>
-        <p > <strong> TOTAL FACTURA:</strong> {{usu.facTotal}} </p>
+          <p> {{usu.idCliente.cliNombre}}</p>
+          <p> Factura Nº: {{usu.facNumeroText}}</p>
+  
+        </div>
+        <div class="header anulado" *ngSwitchDefault>
+          <p> {{usu.idCliente.cliNombre}}</p>
+          <p> Factura Nº: {{usu.facNumeroText}}</p>
+        </div>
       </div>
-      <ion-button *ngIf="usu.estadosri!=='AUTORIZADO'" (click)=" autorizarFactura(usu)" target="_blank" expand="block">
-        <ion-icon name="send"></ion-icon>
-        <div>Mandar autorizar SRI</div>
-      </ion-button>
+     
 
+
+   
+
+    <div class="content">
+      <p> <strong> Clave de acceso: </strong> {{usu.facClaveAcceso}}</p>
+      <p> <strong> {{usu.idCliente.idTipoIdentificacion.tidNombre}}:</strong> {{usu.idCliente.cliCedula}} </p>
+      <p> <strong> Correo: </strong> {{usu.idCliente.cliCorreo}}</p>
+      <p><strong>Fecha emisión:</strong> {{usu.facFecha}}</p>
+      <p> <strong> Fecha autorización:</strong> {{usu.facFechaAutorizacion |
+        date:'yyyy-MM-dd'}}</p>
+      <p><strong>Estado:</strong> {{usu.estadosri}} </p>
+      <p> <strong> TOTAL FACTURA:</strong> {{usu.facTotal}} </p>
     </div>
+    <ion-button *ngIf="usu.estadosri!=='AUTORIZADO'" (click)=" autorizarFactura(usu)" target="_blank" expand="block">
+      <ion-icon name="send"></ion-icon>
+      <div>Mandar autorizar SRI</div>
+    </ion-button>
+
+  </div>
 
 
   </div>

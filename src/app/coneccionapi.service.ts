@@ -9,12 +9,17 @@ import { Router } from '@angular/router';
 })
 export class ConeccionapiService {
 
-  URLAPI;
+  URLAPI
   ipServidor
+  puerto
+  tipoconexion
 
   constructor(public http: HttpClient, private router: Router) {
     this.ipServidor = localStorage.getItem('ipservidor')
-    this.URLAPI = `http://${this.ipServidor}/api/`
+    this.puerto = localStorage.getItem('puerto')
+    this.tipoconexion=localStorage.getItem('tipoconexion')
+
+    this.URLAPI = `${this.tipoconexion}://${this.ipServidor}:${this.puerto}/api/`
   }
   ngOnInit() {
 
@@ -114,7 +119,10 @@ export class ConeccionapiService {
   /* LOGIN*/
   login(nombre, password) {
     this.ipServidor = localStorage.getItem('ipservidor')
-    this.URLAPI = `http://${this.ipServidor}/api/`
+    this.puerto = localStorage.getItem('puerto')
+    this.tipoconexion=localStorage.getItem('tipoconexion')
+
+    this.URLAPI = `${this.tipoconexion}://${this.ipServidor}:${this.puerto}/api/`
 
     let tipo = 'login/';
 

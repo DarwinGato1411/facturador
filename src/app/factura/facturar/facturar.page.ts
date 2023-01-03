@@ -70,7 +70,7 @@ export class FacturarPage implements OnInit {
   }
 
   handleChangeProd(event) {
-    const query = event.target.value;
+    const query = event.target.value.toUpperCase()
     this.buscarproducto(query, this.codTipoambiente)
   }
 
@@ -80,7 +80,7 @@ export class FacturarPage implements OnInit {
     Swal.fire({
 
       icon: 'success',
-      title: 'Estamos cargando sus productos',
+      title: 'Estamos buscando sus productos',
       showConfirmButton: false,
 
     })
@@ -114,7 +114,7 @@ export class FacturarPage implements OnInit {
     let precioInicial = precioFinal / indiceVariacion
     this.facSubtotal = precioInicial * cantidadComprada
     this.factIva = ((precioInicial * (prodIva / 100)) * cantidadComprada);
-    console.log(this.factIva)
+
   }
 
 
@@ -165,46 +165,58 @@ export class FacturarPage implements OnInit {
   }
 
   totalProductoCalcularPrecio(precioVentaNuevo, item) {
-    if (precioVentaNuevo <= item.pordCostoVentaFinal) {
+    if(item.prodEsproducto){
+      if (precioVentaNuevo <= item.pordCostoVentaFinal) {
+        item.precioNuevo = precioVentaNuevo
+        item.totalPagarPorProducto = item.detCantidad * item.precioNuevo
+        this.calcularProducto(item)
+      } else {
+        precioVentaNuevo = item.pordCostoVentaFinal
+        item.precioNuevo = item.pordCostoVentaFinal
+        item.totalPagarPorProducto = item.pordCostoVentaFinal * item.precioNuevo
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'El precio ingresado no debe superar al precio del producto',
+  
+        })
+      }
+    }else{
       item.precioNuevo = precioVentaNuevo
       item.totalPagarPorProducto = item.detCantidad * item.precioNuevo
       this.calcularProducto(item)
-    } else {
-      precioVentaNuevo = item.pordCostoVentaFinal
-      item.precioNuevo = item.pordCostoVentaFinal
-      item.totalPagarPorProducto = item.pordCostoVentaFinal * item.precioNuevo
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'El precio ingresado no debe superar al precio del producto',
-
-      })
     }
+
+    
     this.calcularTotal()
   }
 
   calcularProducto(item) {
     this.factIva = 0;
     this.facSubtotal = 0;
-    console.log(item.detCantidad)
 
     this.calcularFactIva(item.prodIva, item.pordCostoVentaFinal, item.detCantidad, item.precioNuevo)
     item.detIva = this.factIva
     item.detSubtotaldescuentoporcantidad = this.facSubtotal;
-
     item.detSubtotal = item.pordCostoVentaFinal / (1 + (item.prodIva / 100))
     item.detSubtotaldescuento = item.precioNuevo / (1 + ((item.prodIva / 100)))
-
-
     item.detSubtotaldescuentoporcantidad = this.facSubtotal;
+    
     item.detTotal = parseFloat(item.precioNuevo)
 
     item.totalPagarPoritemucto = item.detCantidad * item.precioNuevo
     item.detTotalconiva = item.totalPagarPoritemucto
     item.detTotaldescuentoiva = item.totalPagarPorProducto
 
-    item.detValdescuento = (item.detSubtotal - item.detSubtotaldescuento)
-    item.detCantpordescuento = item.detCantidad * item.detValdescuento
+    if(item.prodEsproducto){
+      item.detValdescuento = (item.detSubtotal - item.detSubtotaldescuento)
+      item.detCantpordescuento = item.detCantidad * item.detValdescuento
+    }else{
+      item.detValdescuento =0
+      item.detCantpordescuento=0
+    }
+   
+    
 
     item.detTotaldescuento = item.detValdescuento * item.detCantidad
 

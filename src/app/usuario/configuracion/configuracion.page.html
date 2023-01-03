@@ -6,8 +6,20 @@
 
 <ion-content>
   <ion-item>
+    <ion-label>Tipo de conexión</ion-label>
+    <select [formControl]="tipoconexion" name="select">
+      
+      <option value="http">http</option>
+      <option value="https">https</option>
+    </select>
+  </ion-item>
+  <ion-item>
     <ion-label>Ingrese direccion ip</ion-label>
     <ion-input type="text" [formControl]="ipServidor" ></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Ingrese el puerto</ion-label>
+    <ion-input type="text" [formControl]="puerto" ></ion-input>
   </ion-item>
   <ion-button (click)="guardarServidor()">Guardar</ion-button>
 </ion-content>

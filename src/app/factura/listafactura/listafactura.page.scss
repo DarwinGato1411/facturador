@@ -15,10 +15,10 @@
     font-size: 30px;
 }
 
-.main-content {
-    background: linear-gradient(45deg, rgba(31, 57, 111, 1) 0%, rgba(62, 110, 85, 1) 100%);
+// .main-content {
+//     background: linear-gradient(45deg, rgba(31, 57, 111, 1) 0%, rgba(62, 110, 85, 1) 100%);
    
-}
+// }
 
 ion-searchbar{
     background-color: white;
@@ -56,12 +56,16 @@ ion-back-button {
             }
         }
 
-        .verde{
-            background-color: green !important;
+        .autorizar{
+            background-color: #42ab49 ;
         }
 
-        .rojo{
-            background-color: red;
+        .anulado{
+            background-color: #c23b22;
+        }
+
+        .pendiente{
+            background-color: #efa94a;
         }
 
         .content {

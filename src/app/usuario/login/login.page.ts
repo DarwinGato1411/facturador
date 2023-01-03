@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { ConeccionapiService } from 'src/app/coneccionapi.service';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -34,9 +34,18 @@ export class LoginPage implements OnInit {
 
   async autentificar() {
     let ipServidor=localStorage.getItem('ipservidor')
-    
-    if(ipServidor){
+    let puerto=localStorage.getItem('puerto')
+  
+    if(ipServidor && puerto){
       this.cnx.login(this.loginForm.value.usuarionombre, this.loginForm.value.password)
+    }else{
+      Swal.fire({
+        icon: 'warning',
+        title: 'Error!',
+        text:'Por favor ingrese la configuración del servidor',
+        showConfirmButton: false,
+        timer:2000,
+      })
     }
 
    

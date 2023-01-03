@@ -11,15 +11,21 @@ import Swal from 'sweetalert2';
 export class ConfiguracionPage implements OnInit {
 
   ipServidor=new FormControl('');
-
+  puerto=new FormControl('');
+  tipoconexion=new FormControl('http');
+  
   constructor(private router: Router) { }
 
   ngOnInit() {
     this.ipServidor.setValue(localStorage.getItem('ipservidor'))
+    this.puerto.setValue(localStorage.getItem('puerto'))
+    this.tipoconexion.setValue(localStorage.getItem('tipoconexion'))
   }
 
   guardarServidor(){
     localStorage.setItem('ipservidor',this.ipServidor.value)
+    localStorage.setItem('puerto',this.puerto.value)
+    localStorage.setItem('tipoconexion',this.tipoconexion.value)
     Swal.fire({
       icon: 'success',
       title: 'Excelente!',
