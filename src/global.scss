@@ -39,18 +39,22 @@ ion-header{
     
 }
 
+$primary-color: #FDBE2C;
 
-.toolbar-background{
-    
-    color: white;
-}
-
-ion-toolbar-background{
-background-color: #3880ff !important;
-}
 
 html *
 {
    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-   --ion-toolbar-background:#3880ff;
+   --ion-toolbar-background:#FDBE2C;
+   --ion-tab-bar-background:#FDBE2C;
+}
+
+ion-tab-bar{
+    ion-icon{
+        color: white;
+    }
+    
+    ion-label{
+        color: white;
+    }
 }

@@ -2,29 +2,29 @@
   <div class="main-content">
     <div class="contenedorLogo">
       <div class="logo">
-        <img src="../../../assets/imagenes/logoDF.jpeg" />
-        <div class="texto">
+        <img src="../../../assets/facturado/logohorizontal.png" />
+        <!-- <div class="texto">
           <p class="title">DEFACT</p>
           <p class="subtitle">FACTURACIÓN ELECTRÓNICA MOVIL</p>
-        </div>
+        </div> -->
       </div>
-      <p class="secundario">Administrar tus facturas nunca ha sido tan facil!</p>
+      <!-- <p class="secundario">Administrar tus facturas nunca ha sido tan facil!</p> -->
     </div>
 
     <div class="contenedorLogin">
       <div class="contenedorTexto">
-        <p>Inicia Sesión</p>
+        <p>Iniciar Sesión</p>
       </div>
       <div>
         <form class="contenedorForm" [formGroup]="loginForm">
-          <ion-item>
+          <div class="contenedorInput">
             <ion-icon name="person-outline"></ion-icon>
-            <ion-input formControlName="usuarionombre" placeholder="Usuario" type="text"> </ion-input>
-          </ion-item>
-          <ion-item>
+            <input formControlName="usuarionombre" placeholder="Usuario" type="text"/> 
+          </div>
+          <div class="contenedorInput">
             <ion-icon name="key-outline"></ion-icon>
-            <ion-input formControlName="password" placeholder="Contraseña" type="password"> </ion-input>
-          </ion-item>
+            <input formControlName="password" placeholder="Contraseña" type="password"/>
+          </div>
           <ion-button expand="block" (click)="autentificar()" [disabled]="!loginForm.valid">Ingresar</ion-button>
         </form>
       </div>
