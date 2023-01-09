@@ -17,25 +17,31 @@ export class ListafacturaPage implements OnInit {
   fechaActual = () => {
     const fecha = new Date();
     const dia = fecha.getDate();
-    let diaF = "" + dia
-    if (dia < 10) {
-      diaF = `0${dia}`
-    }
     const mes = fecha.getMonth() + 1
     const anio = fecha.getFullYear()
-    return `${anio}-${mes}-${diaF}`
+
+    let diaF = "" + dia
+    let mesF="" +mes 
+    
+    dia<10?diaF=`0${dia}`:''
+    mes<10?mesF=`0${mes}`:''
+
+    return `${anio}-${mesF}-${diaF}`
   }
 
   formatearFecha = (fechaInicio) => {
     const fecha = new Date(fechaInicio);
     const dia = fecha.getDate();
-    let diaF = "" + dia
-    if (dia < 10) {
-      diaF = `0${dia}`
-    }
     const mes = fecha.getMonth() + 1
     const anio = fecha.getFullYear()
-    return `${anio}-${mes}-${diaF}`
+
+    let diaF = "" + dia
+    let mesF="" +mes 
+    
+    dia<10?diaF=`0${dia}`:''
+    mes<10?mesF=`0${mes}`:''
+    
+    return `${anio}-${mesF}-${diaF}`
   }
 
   fechaInicio = new FormControl(this.fechaActual())
