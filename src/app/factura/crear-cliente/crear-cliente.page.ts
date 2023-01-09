@@ -17,10 +17,13 @@ export class CrearClientePage implements OnInit {
     const fecha = new Date();
     const dia = fecha.getDate();
     const mes = fecha.getMonth() + 1
+    let diaF=""+dia
+    let mesF=""+mes
+    dia<10?diaF=`0${dia}`:''
+    mes<10?mesF=`0${mes}`:''
+    
     const anio = fecha.getFullYear()
-    console.log(`${dia}-${mes}-${anio}`)
-
-    return `${anio}-${mes}-${dia}`
+    return `${anio}-${mesF}-${diaF}`
   }
 
   cliente = new FormGroup({

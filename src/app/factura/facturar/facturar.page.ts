@@ -19,6 +19,9 @@ export class FacturarPage implements OnInit {
   total = 0;
   iva = 0;
   desc = 0;
+  baseCero = 0
+  base12 = 0
+
   totalPorProducto = 0;
 
   listaproductos;
@@ -27,14 +30,17 @@ export class FacturarPage implements OnInit {
   fechaActual = () => {
     const fecha = new Date();
     const dia = fecha.getDate();
-    let diaF = "" + dia
-    if (dia < 10) {
-      diaF = `0${dia}`
-    }
     const mes = fecha.getMonth() + 1
+    let diaF = "" + dia
+    let mesF = "" + mes
+    dia < 10 ? diaF = `0${dia}` : ''
+    mes < 10 ? mesF = `0${mes}` : ''
     const anio = fecha.getFullYear()
-    return `${anio}-${mes}-${diaF}`
+    return `${anio}-${mesF}-${diaF}`
   }
+
+
+
   //construccion json factura
   usuario: any;
   codTipoambiente;
@@ -146,10 +152,20 @@ export class FacturarPage implements OnInit {
     this.total = 0;
     this.iva = 0;
     this.desc = 0;
+    this.base12 = 0
+    this.baseCero = 0
+
     this.carritoProducto.forEach(producto => {
       this.total = Number((this.total + producto.totalPagarPorProducto).toFixed(2))
       this.iva = Number((this.iva + producto.detIva).toFixed(2))
       this.desc = Number((this.desc + ((producto.pordCostoVentaFinal - producto.detTotal) * producto.detCantidad)).toFixed(2))
+
+      if (producto.prodIva === 12) {
+        this.base12 = Number((this.base12 + producto.detSubtotaldescuentoporcantidad).toFixed(2))
+      } else {
+        this.baseCero = Number((this.baseCero + producto.detSubtotaldescuentoporcantidad).toFixed(2))
+      }
+
     });
   }
 
@@ -165,7 +181,7 @@ export class FacturarPage implements OnInit {
   }
 
   totalProductoCalcularPrecio(precioVentaNuevo, item) {
-    if(item.prodEsproducto){
+    if (item.prodEsproducto) {
       if (precioVentaNuevo <= item.pordCostoVentaFinal) {
         item.precioNuevo = precioVentaNuevo
         item.totalPagarPorProducto = item.detCantidad * item.precioNuevo
@@ -178,16 +194,16 @@ export class FacturarPage implements OnInit {
           icon: 'error',
           title: 'Oops...',
           text: 'El precio ingresado no debe superar al precio del producto',
-  
+
         })
       }
-    }else{
+    } else {
       item.precioNuevo = precioVentaNuevo
       item.totalPagarPorProducto = item.detCantidad * item.precioNuevo
       this.calcularProducto(item)
     }
 
-    
+
     this.calcularTotal()
   }
 
@@ -201,22 +217,22 @@ export class FacturarPage implements OnInit {
     item.detSubtotal = item.pordCostoVentaFinal / (1 + (item.prodIva / 100))
     item.detSubtotaldescuento = item.precioNuevo / (1 + ((item.prodIva / 100)))
     item.detSubtotaldescuentoporcantidad = this.facSubtotal;
-    
+
     item.detTotal = parseFloat(item.precioNuevo)
 
     item.totalPagarPoritemucto = item.detCantidad * item.precioNuevo
     item.detTotalconiva = item.totalPagarPoritemucto
     item.detTotaldescuentoiva = item.totalPagarPorProducto
 
-    if(item.prodEsproducto){
+    if (item.prodEsproducto) {
       item.detValdescuento = (item.detSubtotal - item.detSubtotaldescuento)
       item.detCantpordescuento = item.detCantidad * item.detValdescuento
-    }else{
-      item.detValdescuento =0
-      item.detCantpordescuento=0
+    } else {
+      item.detValdescuento = 0
+      item.detCantpordescuento = 0
     }
-   
-    
+
+
 
     item.detTotaldescuento = item.detValdescuento * item.detCantidad
 
@@ -252,14 +268,14 @@ export class FacturarPage implements OnInit {
     let facTotalBaseGravaba = 0;
     let facTotalBaseCero = 0;
 
-    if (formatearCarrito.length===0) {
+    if (formatearCarrito.length === 0) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'El carrito no debe estar vacio.',
-        timer:1500
+        timer: 1500
       })
-    } else{
+    } else {
       formatearCarrito.forEach(element => {
         let idProducto = element.idProducto
         totalFactIva = totalFactIva + element.detIva;
