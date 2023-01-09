@@ -17,7 +17,7 @@ export class ConeccionapiService {
   constructor(public http: HttpClient, private router: Router) {
     this.ipServidor = localStorage.getItem('ipservidor')
     this.puerto = localStorage.getItem('puerto')
-    this.tipoconexion=localStorage.getItem('tipoconexion')
+    this.tipoconexion="http"
 
     this.URLAPI = `${this.tipoconexion}://${this.ipServidor}:${this.puerto}/api/`
   }
@@ -120,7 +120,8 @@ export class ConeccionapiService {
   login(nombre, password) {
     this.ipServidor = localStorage.getItem('ipservidor')
     this.puerto = localStorage.getItem('puerto')
-    this.tipoconexion=localStorage.getItem('tipoconexion')
+    this.tipoconexion="http"
+    // this.tipoconexion=localStorage.getItem('tipoconexion')
 
     this.URLAPI = `${this.tipoconexion}://${this.ipServidor}:${this.puerto}/api/`
 
