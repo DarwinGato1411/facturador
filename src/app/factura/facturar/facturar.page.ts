@@ -14,8 +14,8 @@ import { parse } from 'path';
 })
 export class FacturarPage implements OnInit {
 
+  facObserva=new FormControl('');
   descripcion = "";
-
   total = 0;
   iva = 0;
   desc = 0;
@@ -38,9 +38,6 @@ export class FacturarPage implements OnInit {
     const anio = fecha.getFullYear()
     return `${anio}-${mesF}-${diaF}`
   }
-
-
-
   //construccion json factura
   usuario: any;
   codTipoambiente;
@@ -60,9 +57,32 @@ export class FacturarPage implements OnInit {
   ngOnInit() {
     this.usuario = JSON.parse(localStorage.getItem('usuario'))
     console.log(this.usuario)
+  }
+  agregarNota(){
+    Swal.fire({
+      title: 'Ingrese la observación de la factura',
+      input: 'textarea',
+      inputValue:this.facObserva.value,
+      inputAttributes: {
+        autocapitalize: 'off',
+        width:"100%",
+        
+      },
+      inputValidator:(nota) => {
+        if (nota.length>=200) {
+          return 'Tiene mas de 200 caracteres(las observaciones deben tener menos de 12 caracteres)'
+        }},
+      showCancelButton:true,
+      cancelButtonText:"Cancelar",
+      confirmButtonText: 'Guardar Nota',
+      showLoaderOnConfirm: true,
+      preConfirm:(facObservacion)=>{
+        this.facObserva.setValue(facObservacion)
+        console.log(facObservacion.length)
+      }
+    })
 
   }
-
 
   async presentAlert(mensaje) {
     const alert = await this.alertController.create({
@@ -305,7 +325,7 @@ export class FacturarPage implements OnInit {
           facTotalBaseGravaba: facTotalBaseGravaba,
           facTotalBaseCero: facTotalBaseCero,
           facDescuento: facDescuento,
-
+          facObservacion:this.facObserva.value,
           facEstado: "PA",
           facTipo: "FACT",
           facAbono: 0,
