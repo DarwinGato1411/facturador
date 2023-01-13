@@ -3,9 +3,15 @@
     <ion-title>Emitiendo factura para: {{usuario.cliNombre}}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="tabprincipal/login"></ion-back-button>
+     
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button style="background-color: black; color: white;border-radius: 20px;" (click)="agregarNota()">Agregar Observación</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
+
 
 <ion-content>
 
@@ -60,7 +66,8 @@
       </ion-row>
       <ion-row class="contenedorProductos" *ngFor="let item of carritoProducto">
         <ion-col>
-          <ion-input type="number" (input)="totalProductoCalcularCantidad($event.target.value,item)" value={{item.detCantidad}}>
+          <ion-input type="number" (input)="totalProductoCalcularCantidad($event.target.value,item)"
+            value={{item.detCantidad}}>
           </ion-input>
         </ion-col>
         <ion-col>
@@ -68,14 +75,15 @@
         </ion-col>
         <ion-col class="itemDinero">
           <span>$</span>
-          <ion-input type="number" (input)="totalProductoCalcularPrecio($event.target.value,item)" value={{item.precioNuevo}}></ion-input>
+          <ion-input type="number" (input)="totalProductoCalcularPrecio($event.target.value,item)"
+            value={{item.precioNuevo}}></ion-input>
         </ion-col>
         <ion-col class="itemDinero">
           <span>$</span>
           <ion-input value="{{item.totalPagarPorProducto}}"></ion-input>
         </ion-col>
         <ion-col>
-          <button  (click)="eliminarProducto(item)" class="btnCancelar">Eliminar</button>
+          <button (click)="eliminarProducto(item)" class="btnCancelar">Eliminar</button>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -88,6 +96,8 @@
   </ion-content>
 
 </ion-content>
+
+
 
 <ion-footer class="footer" slot="fixed">
   <div class="total">
@@ -110,5 +120,8 @@
     <span class="tl">DESC:</span>
     <span class="tlN">${{desc}}</span>
   </div> -->
-  <ion-button (click)="facturar()">Facturar</ion-button>
+  
+ 
+   <ion-button (click)="facturar()">Facturar</ion-button>
+ 
 </ion-footer>
