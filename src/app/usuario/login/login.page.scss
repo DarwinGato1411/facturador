@@ -57,10 +57,10 @@ $primary-color: #FDBE2C;
         margin: auto;
 
         .contenedorTexto {
-            background-color: #eee;
+            background-color: black;
             padding: 20px;
             border-radius: 20px 20px 0 0;
-            color: black;
+            color: white;
             text-align: center;
 
             p {
@@ -70,7 +70,7 @@ $primary-color: #FDBE2C;
 
         .contenedorForm {
             padding: 20px;
-            background-color: black;
+            background-color: #eee;
             border-radius: 0px 0px 20px 20px;
 
             .contenedorInput{
@@ -78,7 +78,7 @@ $primary-color: #FDBE2C;
                 border-radius: 20px;
                 margin-bottom: 20px;
                 background-color: transparent;
-                border: solid 1px white;
+                border: solid 1px black;
                 align-items: center;
                 padding-left: 10px;
                 input{
@@ -88,7 +88,7 @@ $primary-color: #FDBE2C;
                     border-radius: 20px;
                     padding: 10px;
                     margin: auto;
-                    color: white;
+                    color: black;
                     border-width: 0px;
                     outline: none;
                 }
