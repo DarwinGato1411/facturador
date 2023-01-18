@@ -93,7 +93,11 @@
 
 
   </ion-content>
-
+  <ion-fab (click)="crearCliente()" vertical="bottom" horizontal="end" slot="fixed">
+    
+      <ion-button (click)="facturar()">Facturar</ion-button>
+  
+  </ion-fab>
 </ion-content>
 
 
@@ -115,12 +119,8 @@
     <span class="tl">IVA:</span>
     <span class="tlN">${{iva}}</span>
   </div>
-  <!-- <div class="total">
+  <div class="total">
     <span class="tl">DESC:</span>
     <span class="tlN">${{desc}}</span>
-  </div> -->
-
-
-  <ion-button (click)="facturar()">Facturar</ion-button>
-
+  </div>
 </ion-footer>
