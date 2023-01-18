@@ -7,8 +7,7 @@ $primary-color: #FDBE2C;
     .contenedorLogo {
         padding-top: 20px;
         width: 90%;
-        margin: auto;
-        color: white;
+        margin: 0 auto 25px auto;
         gap: 20px;
 
         .logo {
@@ -33,6 +32,7 @@ $primary-color: #FDBE2C;
                 .title {
                     font-size: 24px;
                     font-weight: bold;
+                    color: #FDBE2C;
                 }
 
                 .subtitle {
@@ -57,10 +57,10 @@ $primary-color: #FDBE2C;
         margin: auto;
 
         .contenedorTexto {
-            background-color: black;
+            background-color: #eee;
             padding: 20px;
             border-radius: 20px 20px 0 0;
-            color: white;
+            color: black;
             text-align: center;
 
             p {
