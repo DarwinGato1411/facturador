@@ -70,12 +70,12 @@ export class FacturarPage implements OnInit {
       },
       inputValidator:(nota) => {
         if (nota.length>=200) {
-          return 'Tiene mas de 200 caracteres(las observaciones deben tener menos de 12 caracteres)'
+          return 'Tiene mas de 200 caracteres(las observaciones deben tener menos de 200 caracteres)'
         }},
       showCancelButton:true,
       cancelButtonText:"Cancelar",
       confirmButtonText: 'Guardar Nota',
-      showLoaderOnConfirm: true,
+      showLoaderOnConfirm: true,      
       preConfirm:(facObservacion)=>{
         this.facObserva.setValue(facObservacion)
         console.log(facObservacion.length)

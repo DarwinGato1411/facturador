@@ -19,7 +19,10 @@ export class ConfiguracionPage implements OnInit {
   ngOnInit() {
     this.ipServidor.setValue(localStorage.getItem('ipservidor'))
     this.puerto.setValue(localStorage.getItem('puerto'))
-    this.tipoconexion.setValue(localStorage.getItem('tipoconexion'))
+    if(localStorage.getItem('tipoconexion')){
+      this.tipoconexion.setValue(localStorage.getItem('tipoconexion'))
+    }
+  
   }
 
   guardarServidor(){

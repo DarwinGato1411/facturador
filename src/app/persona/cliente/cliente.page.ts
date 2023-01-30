@@ -13,24 +13,25 @@ export class ClientePage implements OnInit {
   codTipoambiente;
   descripcion = "";
 
+  
   constructor(public alertController: AlertController,
     private loadingController: LoadingController,
     private cnx: ConeccionapiService,private router: Router) { 
     this.codTipoambiente = localStorage.getItem("codTipoambiente");
     console.log("this.codTipoambiente",this.codTipoambiente)
     this.buscarclientes(this.descripcion, this.codTipoambiente)
-
+    console.log("hola")
+    
   }
 
   ngOnInit() {
+    
   }
 
 
   handleChangeProd(event) {
-  
     const query = event.target.value.toUpperCase();
     this.buscarclientes(query, this.codTipoambiente)
-
   }
 
    /*OBTENEMOS LOS DATOS DEL API REST*/
@@ -77,7 +78,9 @@ export class ClientePage implements OnInit {
   editarCliente(cliente){
     localStorage.setItem("clienteEditar",JSON.stringify(cliente))
     this.router.navigateByUrl(`crear-cliente/Editar`);
+   
   }
+  
 
   crearCliente(){
     this.router.navigateByUrl(`crear-cliente/Crear`);
