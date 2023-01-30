@@ -17,7 +17,7 @@ export class ConeccionapiService {
   constructor(public http: HttpClient, private router: Router) {
     this.ipServidor = localStorage.getItem('ipservidor')
     this.puerto = localStorage.getItem('puerto')
-    this.tipoconexion="http"
+    this.tipoconexion = localStorage.getItem('tipoconexion')
 
     this.URLAPI = `${this.tipoconexion}://${this.ipServidor}:${this.puerto}/api/`
   }
@@ -120,7 +120,8 @@ export class ConeccionapiService {
   login(nombre, password) {
     this.ipServidor = localStorage.getItem('ipservidor')
     this.puerto = localStorage.getItem('puerto')
-    this.tipoconexion="http"
+    // this.tipoconexion="http"
+    this.tipoconexion = localStorage.getItem('tipoconexion')
 
     this.URLAPI = `${this.tipoconexion}://${this.ipServidor}:${this.puerto}/api/`
 
@@ -139,7 +140,7 @@ export class ConeccionapiService {
       headers: { "Content-type": "application/json;charset=UTF-8" }
     })
       .then(res => {
-        console.log("estatus creacion producto", res.status)
+       
         if (res.status === 200) {
           Swal.fire({
             icon: 'success',
@@ -148,7 +149,7 @@ export class ConeccionapiService {
             timer: 1500
           })
           return res.json()
-        } else if (res.status === 500) {
+        } else {
           Swal.fire({
             icon: 'warning',
             title: 'Algo salió mal',
@@ -175,8 +176,7 @@ export class ConeccionapiService {
       .catch(err => Swal.fire({
         icon: 'warning',
         title: 'Algo salió mal',
-        text: err,
-        timer: 1500
+        text:"Por favor revise las credenciales o la configuración al servidor"+ err,
       }))
   }
 
@@ -400,14 +400,13 @@ export class ConeccionapiService {
 
     console.log(descripcion)
     const urlServer = this.URLAPI + tipo;
-
+    
     const postParam = {
       prodNombre: descripcion,
       codTipoambiente: codTipoambiente,
       fin: fechaFinal,
       inicio: fechaincio,
     };
-    console.log(postParam)
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -428,18 +427,19 @@ export class ConeccionapiService {
     })
       .then(response => {
         console.log("estatus creacion factura", response.status)
-        if(response.status===200){
+        if (response.status === 200) {
           Swal.fire({
             icon: 'success',
             title: 'ok!',
             text: 'Factura creada con éxito',
+            showConfirmButton: false,
             timer: 1500
           })
-          
+
           this.router.navigateByUrl('principal/iniciofactura');
           return response.json()
         }
-       
+
       })
       .then(json => console.log(json))
       .catch(err => console.log(err))
@@ -461,9 +461,14 @@ export class ConeccionapiService {
             icon: 'success',
             title: 'ok!',
             text: 'Cliente creado con exito',
+            showConfirmButton: false,
             timer: 1500
           })
-          this.router.navigateByUrl('principal/misclientes');
+
+          // this.router.navigateByUrl('principal/misclientes');
+          setTimeout(() => {
+            location.href = 'principal/misclientes'
+          }, 1500)
           return response.json()
         }
       })
@@ -486,9 +491,14 @@ export class ConeccionapiService {
             icon: 'success',
             title: 'ok!',
             text: 'Producto creado con exito',
-            timer: 1500
+            timer: 1500,
+            showConfirmButton: false,
           })
-          this.router.navigateByUrl('principal/misservicio');
+          setTimeout(() => {
+            location.href = 'principal/misservicio'
+          }, 1500)
+
+
 
           return response.json()
         }
@@ -516,15 +526,18 @@ export class ConeccionapiService {
       .then(response => {
         console.log("estatus creacion producto", response.status)
         Swal.close()
-        if (response.status === 200) {   
+        if (response.status === 200) {
           Swal.fire({
             icon: 'success',
             title: 'ok',
             text: 'La factura ha sido autorizada',
             timer: 2000
           })
-         
-          this.router.navigateByUrl('principal/listafactura');
+
+          setTimeout(() => {
+            location.href = 'principal/listafactura'
+          }, 2000)
+
           return response.json()
         }
       })

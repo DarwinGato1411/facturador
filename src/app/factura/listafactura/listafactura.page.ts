@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { ConeccionapiService } from 'src/app/coneccionapi.service';
 import { FormControl, FormControlName, FormGroup } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-listafactura',
@@ -22,16 +23,10 @@ export class ListafacturaPage implements OnInit {
 
     let diaF = "" + dia
     let mesF="" +mes 
-    if (dia < 10  ) {
-      diaF = `0${dia}`
-    }
-
-    if(mes <10){
-      mesF=`0${mes}`
-    }
-
     
-    
+    dia<10?diaF=`0${dia}`:''
+    mes<10?mesF=`0${mes}`:''
+
     return `${anio}-${mesF}-${diaF}`
   }
 
@@ -58,6 +53,7 @@ export class ListafacturaPage implements OnInit {
     private cnx: ConeccionapiService) {
     this.codTipoambiente = localStorage.getItem("codTipoambiente");
     this.buscarfacturas(this.descripcion, this.codTipoambiente)
+
   }
 
   ngOnInit() {
@@ -66,9 +62,19 @@ export class ListafacturaPage implements OnInit {
 
   /*OBTENEMOS LOS DATOS DEL API REST*/
   async buscarfacturas(descripcion, codTipoambiente) {
-    this.cnx.buscarfacturas(descripcion, codTipoambiente, this.formatearFecha(this.fechaInicio.value),this.formatearFecha(this.fechaFinal.value)).subscribe(
+
+    Swal.fire({
+      icon: 'info',
+      title: 'Buscando facturas',
+      text: 'Por favor espere un momento',
+      showConfirmButton: false,
+
+    })
+
+    this.cnx.buscarfacturas(descripcion, codTipoambiente, this.formatearFecha(this.fechaInicio.value), this.fechaFinal.value).subscribe(
       (ok: any) => {
         this.listafacturas = ok;
+        Swal.close()
       },
       error => {
         // loading.dismiss();
