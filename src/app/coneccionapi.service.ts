@@ -140,7 +140,7 @@ export class ConeccionapiService {
       headers: { "Content-type": "application/json;charset=UTF-8" }
     })
       .then(res => {
-        console.log("estatus creacion producto", res.status)
+       
         if (res.status === 200) {
           Swal.fire({
             icon: 'success',
@@ -149,7 +149,7 @@ export class ConeccionapiService {
             timer: 1500
           })
           return res.json()
-        } else if (res.status === 500) {
+        } else {
           Swal.fire({
             icon: 'warning',
             title: 'Algo salió mal',
@@ -176,8 +176,7 @@ export class ConeccionapiService {
       .catch(err => Swal.fire({
         icon: 'warning',
         title: 'Algo salió mal',
-        text: err,
-        timer: 1500
+        text:"Por favor revise las credenciales o la configuración al servidor"+ err,
       }))
   }
 
@@ -401,14 +400,13 @@ export class ConeccionapiService {
 
     console.log(descripcion)
     const urlServer = this.URLAPI + tipo;
-
+    
     const postParam = {
       prodNombre: descripcion,
       codTipoambiente: codTipoambiente,
       fin: fechaFinal,
       inicio: fechaincio,
     };
-    console.log(postParam)
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -462,6 +460,7 @@ export class ConeccionapiService {
             icon: 'success',
             title: 'ok!',
             text: 'Cliente creado con exito',
+            showConfirmButton: false,
             timer: 1500
           })
 
@@ -491,7 +490,8 @@ export class ConeccionapiService {
             icon: 'success',
             title: 'ok!',
             text: 'Producto creado con exito',
-            timer: 1500
+            timer: 1500,
+            showConfirmButton: false,
           })
           setTimeout(() => {
             location.href = 'principal/misservicio'

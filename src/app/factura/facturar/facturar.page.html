@@ -25,9 +25,9 @@
         <div class="item">
           <span>${{item.pordCostoVentaFinal}}</span>
         </div>
-        <ion-button target="_blank" expand="block">
+        <ion-button target="_blank" expand="block" (click)="agregarCarrito(item)">
           <ion-icon name="chevron-forward-circle-outline"></ion-icon>
-          <div (click)="agregarCarrito(item)"> Agregar </div>
+          <div > Agregar </div>
         </ion-button>
       </div>
     </div>
@@ -44,41 +44,41 @@
 
     <ion-grid>
       <ion-row>
-        <ion-col>
-          <ion-input value="Cantidad"></ion-input>
+        <ion-col size="2">
+          <ion-input value="Cantidad" [readonly]="true"></ion-input>
         </ion-col>
-        <ion-col>
-          <ion-input value="Descripción"></ion-input>
+        <ion-col size="4">
+          <ion-input value="Descripción" [readonly]="true"></ion-input>
         </ion-col>
-        <ion-col>
-          <ion-input value="Precio"></ion-input>
+        <ion-col size="2">
+          <ion-input value="Precio" [readonly]="true"></ion-input>
         </ion-col>
-        <ion-col>
-          <ion-input value="Total"></ion-input>
+        <ion-col size="2">
+          <ion-input  value="Total" [readonly]="true"></ion-input>
         </ion-col>
-        <ion-col>
-          <ion-input value="Acción"></ion-input>
+        <ion-col size="2">
+          <ion-input value="Acción" [readonly]="true"></ion-input>
         </ion-col>
       </ion-row>
       <ion-row class="contenedorProductos" *ngFor="let item of carritoProducto">
-        <ion-col>
+        <ion-col size="2">
           <ion-input type="number" (input)="totalProductoCalcularCantidad($event.target.value,item)"
             value={{item.detCantidad}}>
           </ion-input>
         </ion-col>
-        <ion-col>
-          <ion-input value={{item.prodNombre}}></ion-input>
+        <ion-col size="4">
+          <ion-input value={{item.prodNombre}} [readonly]="true"></ion-input>
         </ion-col>
-        <ion-col class="itemDinero">
+        <ion-col size="2" class="itemDinero">
           <span>$</span>
           <ion-input type="number" (input)="totalProductoCalcularPrecio($event.target.value,item)"
             value={{item.precioNuevo}}></ion-input>
         </ion-col>
-        <ion-col class="itemDinero">
+        <ion-col size="2" class="itemDinero">
           <span>$</span>
-          <ion-input value="{{item.totalPagarPorProducto}}"></ion-input>
+          <ion-input value="{{item.totalPagarPorProducto}}" [readonly]="true"></ion-input>
         </ion-col>
-        <ion-col>
+        <ion-col size="2">
           <button (click)="eliminarProducto(item)" class="btnCancelar">Eliminar</button>
         </ion-col>
       </ion-row>
