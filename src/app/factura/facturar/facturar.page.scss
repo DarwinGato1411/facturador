@@ -6,26 +6,37 @@ ion-back-button{
     }
 }
 
+ion-fab{
+    display: grid;
+}
+
 .footer {
     background-color: white;
     border-radius: 20px 20px 0 0;
     color: black;
-    height: 10%;
+    height: 15%;
     padding: 10px;
-    display: grid;
-    grid-template-columns: repeat(5,1fr);
-
-    .total{
+   
+    .calculos{
         display: grid;
-        .tl, .tlN{
-            text-align: center;
-            width: 100%;
+        grid-template-columns: repeat(5,1fr);
+        .total{
+            display: grid;
+            .tl, .tlN{
+                text-align: center;
+                width: 100%;
+            }
         }
     }
-    ion-button {
-        background-color: #6273ab;
-        color: white;
+
+    .botonera{
+      
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        font-size: 10px;
     }
+    
+    
 }
 
 .contenedorCarrito{
