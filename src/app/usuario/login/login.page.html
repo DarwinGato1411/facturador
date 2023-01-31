@@ -22,7 +22,8 @@
           </div>
           <div class="contenedorInput">
             <ion-icon name="key-outline"></ion-icon>
-            <input formControlName="password" placeholder="Contraseña" type="password"/>
+            <input formControlName="password" id="password" placeholder="Contraseña" type="password"/>
+            <ion-icon class="hide-option" id="viewPassword"  name="eye-outline" (click)="toggleShow()"></ion-icon>
           </div>
           <ion-button expand="block" (click)="autentificar()" [disabled]="!loginForm.valid">Ingresar</ion-button>
         </form>
