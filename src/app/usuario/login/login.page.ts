@@ -32,6 +32,19 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
+  click=false
+  toggleShow() {
+    let password = document.getElementById('password');
+    console.log(this.click)
+    if (!this.click) {
+      password.setAttribute("type",'text')
+      this.click = true
+    } else if (this.click) {
+      password.setAttribute("type",'password');
+      this.click = false
+    }
+  }
+
   async autentificar() {
     let ipServidor=localStorage.getItem('ipservidor')
     let puerto=localStorage.getItem('puerto')
