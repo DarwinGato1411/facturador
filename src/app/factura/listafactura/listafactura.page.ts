@@ -22,10 +22,25 @@ export class ListafacturaPage implements OnInit {
     const anio = fecha.getFullYear()
 
     let diaF = "" + dia
-    let mesF="" +mes 
-    
-    dia<10?diaF=`0${dia}`:''
-    mes<10?mesF=`0${mes}`:''
+    let mesF = "" + mes
+
+    dia < 10 ? diaF = `0${dia}` : ''
+    mes < 10 ? mesF = `0${mes}` : ''
+
+    return `${anio}-${mesF}-${diaF}`
+  }
+
+  fechaActualFin = () => {
+    const fecha = new Date();
+    const dia = fecha.getDate() + 1
+    const mes = fecha.getMonth() + 1
+    const anio = fecha.getFullYear()
+
+    let diaF = "" + dia
+    let mesF = "" + mes
+
+    dia < 10 ? diaF = `0${dia}` : ''
+    mes < 10 ? mesF = `0${mes}` : ''
 
     return `${anio}-${mesF}-${diaF}`
   }
@@ -37,16 +52,18 @@ export class ListafacturaPage implements OnInit {
     const anio = fecha.getFullYear()
 
     let diaF = "" + dia
-    let mesF="" +mes 
-    
-    dia<10?diaF=`0${dia}`:''
-    mes<10?mesF=`0${mes}`:''
-    
+    let mesF = "" + mes
+
+    dia < 10 ? diaF = `0${dia}` : ''
+    mes < 10 ? mesF = `0${mes}` : ''
+
     return `${anio}-${mesF}-${diaF}`
   }
 
+
+
   fechaInicio = new FormControl(this.fechaActual())
-  fechaFinal = new FormControl(this.fechaActual())
+  fechaFinal = new FormControl(this.fechaActualFin())
 
   constructor(public alertController: AlertController,
     private loadingController: LoadingController,
@@ -104,15 +121,15 @@ export class ListafacturaPage implements OnInit {
     this.buscarfacturas(this.descripcion, this.codTipoambiente)
   }
 
-  autorizarFactura(factu){
+  autorizarFactura(factu) {
     this.codTipoambiente = localStorage.getItem("codTipoambiente");
-    
-    let facturaAu={
-      tipoambiente:this.codTipoambiente,
-      numero:factu.facNumeroText
+
+    let facturaAu = {
+      tipoambiente: this.codTipoambiente,
+      numero: factu.facNumeroText
     }
     console.log(facturaAu)
-     this.cnx.facturaAutorizar(facturaAu)
+    this.cnx.facturaAutorizar(facturaAu)
   }
 
 

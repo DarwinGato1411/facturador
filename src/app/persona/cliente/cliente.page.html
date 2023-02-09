@@ -2,7 +2,8 @@
   <ion-toolbar>
     <ion-title>Mis clientes</ion-title>
     <ion-buttons slot="end">
-      <ion-button style="background-color: black; color: white;border-radius: 20px;" href="tabprincipal/login">Salir</ion-button>
+      <ion-button style="background-color: black; color: white;border-radius: 20px;"
+        href="tabprincipal/login">Salir</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -28,14 +29,12 @@
           <p> Correo: {{usu.cliCorreo}}</p>
           <p> {{usu.idTipoIdentificacion.tidNombre}}: {{usu.cliCedula}}</p>
         </div>
-
-        <ion-button class="boton" (click)="editarCliente(usu)" target="_blank" expand="block">
-          <ion-icon name="pencil"></ion-icon>
-          <div> Editar</div>
-        </ion-button>
-
-
-
+        <div *ngIf="usu.cliCedula!=='9999999999999'">
+          <ion-button class="boton" (click)="editarCliente(usu)" target="_blank" expand="block">
+            <ion-icon name="pencil"></ion-icon>
+            <div>Editar</div>
+          </ion-button>
+        </div>
       </div>
     </div>
   </div>
