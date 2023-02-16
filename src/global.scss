@@ -25,41 +25,41 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-ion-header{
-    ion-toolbar{
-        toolbar-background{
+ion-header {
+    ion-toolbar {
+        toolbar-background {
             background-color: #3880ff;
             color: white;
         }
-        ion-title{
-          
+
+        ion-title {
+
             color: white;
         }
     }
-    
+
 }
 
 $primary-color: #FDBE2C;
 
 
-html *
-{
-   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-   --ion-toolbar-background:#FDBE2C;
-   --ion-tab-bar-background:#FDBE2C;
-   
+html * {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    --ion-toolbar-background:        ;
+    --ion-tab-bar-background: #74398d;
+
 }
 
-.button-solid{
-    --background:#2a0f0f98;
+.button-solid {
+    --background: black;
 }
 
-ion-tab-bar{
-    ion-icon{
+ion-tab-bar {
+    ion-icon {
         color: white;
     }
-    
-    ion-label{
+
+    ion-label {
         color: white;
     }
 }

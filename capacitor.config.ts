@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.example.app',
-  appName: 'Facturado',
+  appId: 'com.paybills.app',
+  appName: 'Paybills',
   webDir: 'www',
   bundledWebRuntime: false
 };
