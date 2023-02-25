@@ -55,7 +55,7 @@
       <p> <strong> Fecha autorización:</strong> {{usu.facFechaAutorizacion |
         date:'yyyy-MM-dd'}}</p>
       <p><strong>Estado:</strong> {{usu.estadosri}} </p>
-      <p> <strong> TOTAL FACTURA:</strong> {{usu.facTotal}} </p>
+      <p> <strong> TOTAL FACTURA:</strong> {{usu.facTotal|currency: 0 : "USD "}} </p>
     </div>
     <ion-button *ngIf="usu.estadosri!=='AUTORIZADO'" (click)=" autorizarFactura(usu)" target="_blank" expand="block">
       <ion-icon name="send"></ion-icon>

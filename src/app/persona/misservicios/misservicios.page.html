@@ -2,7 +2,8 @@
   <ion-toolbar>
     <ion-title>Mis productos</ion-title>
     <ion-buttons slot="end">
-      <ion-button style="background-color: black; color: white;border-radius: 20px;" href="tabprincipal/login">Salir</ion-button>
+      <ion-button style="background-color: black; color: white;border-radius: 20px;"
+        href="tabprincipal/login">Salir</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -18,19 +19,19 @@
         </div>
         <div class="content">
           <p> Descripcion: {{usu.prodNombre}}</p>
-          <p>Precio: {{usu.pordCostoVentaFinal}}</p>
+          <p>Precio: {{usu.pordCostoVentaFinal | currency: 0 : "USD"}}</p>
           <p>Graba IVA: {{usu.prodGrabaIva?'SI':'NO'}}</p>
         </div>
 
         <ion-button (click)="modificar(usu)" target="_blank" expand="block">
           <ion-icon name="pencil"></ion-icon>
-          <div> Editar</div>
+          <div>Editar</div>
         </ion-button>
       </div>
     </div>
   </div>
 </ion-content>
-x
+
 <ion-fab (click)="crearProducto()" vertical="bottom" horizontal="end" slot="fixed">
   <ion-fab-button>
     <ion-icon name="add"></ion-icon>
