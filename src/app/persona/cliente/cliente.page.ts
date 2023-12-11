@@ -13,19 +13,19 @@ export class ClientePage implements OnInit {
   codTipoambiente;
   descripcion = "";
 
-  
+
   constructor(public alertController: AlertController,
     private loadingController: LoadingController,
-    private cnx: ConeccionapiService,private router: Router) { 
+    private cnx: ConeccionapiService, private router: Router) {
     this.codTipoambiente = localStorage.getItem("codTipoambiente");
-    console.log("this.codTipoambiente",this.codTipoambiente)
+    console.log("this.codTipoambiente", this.codTipoambiente)
     this.buscarclientes(this.descripcion, this.codTipoambiente)
     console.log("hola")
-    
+
   }
 
   ngOnInit() {
-    
+
   }
 
 
@@ -34,27 +34,16 @@ export class ClientePage implements OnInit {
     this.buscarclientes(query, this.codTipoambiente)
   }
 
-   /*OBTENEMOS LOS DATOS DEL API REST*/
-   async buscarclientes(descripcion, codTipoambiente) {
-    console.log('descripcion ',descripcion, codTipoambiente)
-    /*const loading = await this.loadingController.create({
-      message: 'Verificando',
-    });
-    loading.present();*/
-    //
+  /*OBTENEMOS LOS DATOS DEL API REST*/
+  async buscarclientes(descripcion, codTipoambiente) {
+    console.log('descripcion ', descripcion, codTipoambiente)
 
-    this.cnx.buscarclientes(descripcion,codTipoambiente).subscribe(
+    this.cnx.buscarclientes(descripcion, codTipoambiente).subscribe(
       (ok: any) => {
-
         this.listaClientes = ok;
-      //  loading.dismiss();
-
-
         console.log(ok);
-        //   this.router.navigateByUrl('tabprincipal');
       },
       error => {
-       // loading.dismiss();
         console.log(JSON.stringify(error));
         alert(JSON.stringify(error));
         this.presentAlert('Error de datos ....');
@@ -75,14 +64,14 @@ export class ClientePage implements OnInit {
     await alert.present();
   }
 
-  editarCliente(cliente){
-    localStorage.setItem("clienteEditar",JSON.stringify(cliente))
+  editarCliente(cliente) {
+    localStorage.setItem("clienteEditar", JSON.stringify(cliente))
     this.router.navigateByUrl(`crear-cliente/Editar`);
-   
-  }
-  
 
-  crearCliente(){
+  }
+
+
+  crearCliente() {
     this.router.navigateByUrl(`crear-cliente/Crear`);
   }
 }

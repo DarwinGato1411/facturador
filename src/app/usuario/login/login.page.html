@@ -1,5 +1,5 @@
-<ion-content>
-  <div class="main-content">
+<ion-content class='container'>
+  <!-- <div class="main-content">
     <div class="contenedorLogo">
       <div class="logo">
         <img src="../../../assets/imagenes/logoDF.jpeg" />
@@ -29,6 +29,42 @@
           <ion-button expand="block" (click)="autentificar()" [disabled]="!loginForm.valid">Ingresar</ion-button>
         </form>
       </div>
+    </div>
+  </div> -->
+
+  <div class="screen">
+    <div class="screen__content">
+      <form class="login" [formGroup]="loginForm">
+        <div class="login__field">
+          <i class="login__icon fas fa-user"></i>
+          <input formControlName="usuarionombre" type="text" class="login__input" placeholder="Usuario" />
+        </div>
+        <div class="login__field">
+          <i class="login__icon fas fa-lock"></i>
+          <input formControlName="password" id="password" type="password" class="login__input" placeholder="Contraseña" />
+        </div>
+        <button class="button login__submit" expand="block" (click)="autentificar()" [disabled]="!loginForm.valid">
+          <span class="button__text">Iniciar Sesión</span>
+        </button>
+        <!-- <Link to="/home" class="button login__submit">
+          <span class="button__text">Log In</span>
+          <i class="button__icon fas fa-chevron-right"></i>
+        </Link> -->
+      </form>
+      <div class="social-login">
+        <img class="logo" src="../../../assets/imagenes/logoDK.png" />
+        <div class="social-icons">
+          <a href="#" class="social-login__icon fab fa-instagram"></a>
+          <a href="#" class="social-login__icon fab fa-facebook"></a>
+          <a href="#" class="social-login__icon fab fa-twitter"></a>
+        </div>
+      </div>
+    </div>
+    <div class="screen__background">
+      <span class="screen__background__shape screen__background__shape4"></span>
+      <span class="screen__background__shape screen__background__shape3"></span>
+      <span class="screen__background__shape screen__background__shape2"></span>
+      <span class="screen__background__shape screen__background__shape1"></span>
     </div>
   </div>
 

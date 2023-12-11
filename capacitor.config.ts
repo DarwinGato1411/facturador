@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.example.app',
-  appName: 'DEFACT',
+  appId: 'com.deckxelfacturacion.app',
+  appName: 'DECKXEL',
   webDir: 'www',
   bundledWebRuntime: false
 };

@@ -29,10 +29,13 @@
           <p> {{usu.idTipoIdentificacion.tidNombre}}: {{usu.cliCedula}}</p>
         </div>
 
-        <ion-button class="boton" (click)="editarCliente(usu)" target="_blank" expand="block">
-          <ion-icon name="pencil"></ion-icon>
-          <div> Editar</div>
-        </ion-button>
+        <div *ngIf="usu.cliCedula!='9999999999999'">
+          <ion-button class="boton" (click)="editarCliente(usu)" target="_blank" expand="block">
+            <ion-icon name="pencil"></ion-icon>
+            <div> Editar</div>
+          </ion-button>
+        </div>
+       
 
 
 

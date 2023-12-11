@@ -134,10 +134,11 @@ export class ConeccionapiService {
       usuLogin: nombre,
       usuPassword: password
     };
+    
     fetch(urlServer, {
       method: "POST",
       body: JSON.stringify(postParam),
-      headers: { "Content-type": "application/json;charset=UTF-8" }
+      headers: { "Content-Type": "application/json" } 
     })
       .then(res => {
        
@@ -159,8 +160,7 @@ export class ConeccionapiService {
         }
       })
       .then(ok => {
-        let usuario = ok
-        console.log("LOGIN ", ok);
+        let usuario = ok  
         let idActividad = null;
         if (usuario.idActividad != null) {
           idActividad = usuario.idActividad.idTipoActividad
@@ -168,7 +168,6 @@ export class ConeccionapiService {
         localStorage.setItem("idUsuario", usuario.idUsuario);
         localStorage.setItem("usuario", usuario.usuLogin);
         localStorage.setItem("password", usuario.usuPassword)
-
         localStorage.setItem("codTipoambiente", usuario.codTipoAmbiente);
         localStorage.setItem("nombreperfil", usuario.usuNombre);
         this.router.navigateByUrl('principal');
@@ -369,11 +368,9 @@ export class ConeccionapiService {
     //ahi esta
     let tipo = 'clientes/';
     console.log("BANDERA ......")
-    /* if (bandera != 'prod') {
-       tipo = 'servicios/';
-     }*/
+  
     const urlServer = this.URLAPI + tipo;
-
+    console.log(urlServer)
     const postParam = {
       prodNombre: descripcion,
       codTipoambiente: codTipoambiente
@@ -382,13 +379,9 @@ export class ConeccionapiService {
     console.log("urlServer ---------- ", urlServer)
     console.log("postParam ---------- ", postParam)
     //ahi funciona pero si le agrego eñ httOptions no reconoce
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
+    
     //return this.http.post(urlServer, postParam, httpOptions);
-    return this.http.post(urlServer, postParam, httpOptions);
+    return this.http.post(urlServer, postParam);
   }
 
 
