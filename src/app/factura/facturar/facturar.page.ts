@@ -14,13 +14,17 @@ import { parse } from 'path';
 })
 export class FacturarPage implements OnInit {
 
-  facObserva=new FormControl('');
+  facObserva = new FormControl('');
   descripcion = "";
   total = 0;
   iva = 0;
+  iva5 = 0;
+  iva15 = 0;
   desc = 0;
   baseCero = 0
   base12 = 0
+  base5 = 0
+  base15 = 0
 
   totalPorProducto = 0;
 
@@ -58,25 +62,26 @@ export class FacturarPage implements OnInit {
     this.usuario = JSON.parse(localStorage.getItem('usuario'))
     console.log(this.usuario)
   }
-  agregarNota(){
+  agregarNota() {
     Swal.fire({
       title: 'Ingrese la observación de la factura',
       input: 'textarea',
-      inputValue:this.facObserva.value,
+      inputValue: this.facObserva.value,
       inputAttributes: {
         autocapitalize: 'off',
-        width:"100%",
-        
+        width: "100%",
+
       },
-      inputValidator:(nota) => {
-        if (nota.length>=200) {
+      inputValidator: (nota) => {
+        if (nota.length >= 200) {
           return 'Tiene mas de 200 caracteres(las observaciones deben tener menos de 200 caracteres)'
-        }},
-      showCancelButton:true,
-      cancelButtonText:"Cancelar",
+        }
+      },
+      showCancelButton: true,
+      cancelButtonText: "Cancelar",
       confirmButtonText: 'Guardar Nota',
-      showLoaderOnConfirm: true,      
-      preConfirm:(facObservacion)=>{
+      showLoaderOnConfirm: true,
+      preConfirm: (facObservacion) => {
         this.facObserva.setValue(facObservacion)
         console.log(facObservacion.length)
       }
@@ -172,15 +177,34 @@ export class FacturarPage implements OnInit {
     this.total = 0;
     this.iva = 0;
     this.desc = 0;
-    this.base12 = 0
-    this.baseCero = 0
+    this.base12 = 0;
+    this.baseCero = 0;
+    this.base5 = 0;
+    this.base15 = 0;
+
+    this.iva5 = 0;
+    this.iva15 = 0;
 
     this.carritoProducto.forEach(producto => {
       this.total = Number((this.total + producto.totalPagarPorProducto).toFixed(2))
       this.iva = Number((this.iva + producto.detIva).toFixed(2))
+      console.log('ingresa iva 12', this.iva)
       this.desc = Number((this.desc + ((producto.pordCostoVentaFinal - producto.detTotal) * producto.detCantidad)).toFixed(2))
+      if (producto.prodIva === 5) {
+        this.iva5 = Number((this.iva5 + producto.detIva).toFixed(2))
+      } else if (producto.prodIva === 15) {
+        this.iva15 = Number((this.iva15 + producto.detIva).toFixed(2))
+        console.log('ingresa iva 15', this.iva15)
+      }
 
-      if (producto.prodIva === 12) {
+
+      if (producto.prodIva === 5) {
+        this.base5 = Number((this.base5 + producto.detSubtotaldescuentoporcantidad).toFixed(2))
+      } else if (producto.prodIva === 15) {
+
+        this.base15 = Number((this.base15 + producto.detSubtotaldescuentoporcantidad).toFixed(2))
+        console.log('ingresa 15', this.base15)
+      } else if (producto.prodIva === 12) {
         this.base12 = Number((this.base12 + producto.detSubtotaldescuentoporcantidad).toFixed(2))
       } else {
         this.baseCero = Number((this.baseCero + producto.detSubtotaldescuentoporcantidad).toFixed(2))
@@ -257,7 +281,17 @@ export class FacturarPage implements OnInit {
     item.detTotaldescuento = item.detValdescuento * item.detCantidad
 
     item.detTarifa = item.prodIva
-    item.prodGrabaIva ? item.detCodPorcentaje = 2 : item.detCodPorcentaje = 0
+    //item.prodGrabaIva ? item.detCodPorcentaje = 2 : item.detCodPorcentaje = 0
+    if (item.prodIva === 5) {
+      item.detCodIva = 2
+      item.detCodPorcentaje = 5
+    } else if (item.prodIva === 15) {
+      item.detCodIva = 2
+      item.detCodPorcentaje = 4
+    } else {
+      item.detCodIva = 2
+      item.detCodPorcentaje = 0
+    }
 
 
 
@@ -282,8 +316,12 @@ export class FacturarPage implements OnInit {
 
   facturar() {
     let totalFactIva = 0;
+    let totalFactIva5 = 0;
+    let totalFactIva15 = 0;
     let formatearCarrito = [...this.carritoProducto]
     let factSubtotal = 0;
+    let factSubtotal5 = 0;
+    let factSubtotal15 = 0;
     let facDescuento = 0;
     let facTotalBaseGravaba = 0;
     let facTotalBaseCero = 0;
@@ -298,16 +336,28 @@ export class FacturarPage implements OnInit {
     } else {
       formatearCarrito.forEach(element => {
         let idProducto = element.idProducto
-        totalFactIva = totalFactIva + element.detIva;
+
         factSubtotal = factSubtotal + element.detSubtotaldescuentoporcantidad
         facDescuento = facDescuento + element.detTotaldescuento
-
-        if (element.detIva === 0) {
+        console.log('ELEMENTO ', element)
+        if (element.detTarifa === 0) {
           facTotalBaseCero = facTotalBaseCero + element.detSubtotaldescuentoporcantidad
 
+        } else if (element.detTarifa === 5) {
+          factSubtotal5 = factSubtotal5 + element.detSubtotaldescuentoporcantidad
+          totalFactIva5 = totalFactIva5 + element.detIva;
+        } else if (element.detTarifa === 15) {
+
+          factSubtotal15 = factSubtotal15 + element.detSubtotaldescuentoporcantidad
+          totalFactIva15 = totalFactIva15 + element.detIva;
         } else {
           facTotalBaseGravaba = facTotalBaseGravaba + element.detSubtotaldescuentoporcantidad
+          totalFactIva = totalFactIva + element.detIva;
         }
+
+
+
+
         element.detDescripcion = element.prodNombre
         element.detCodIva = "2"
         element.detValorIce = 0
@@ -321,11 +371,19 @@ export class FacturarPage implements OnInit {
           facFecha: this.fechaActual(),
           facSubtotal: factSubtotal,
           facIva: totalFactIva,
-          facTotal: factSubtotal + totalFactIva,
+          facTotal: factSubtotal + totalFactIva + totalFactIva5 + totalFactIva15,
           facTotalBaseGravaba: facTotalBaseGravaba,
           facTotalBaseCero: facTotalBaseCero,
           facDescuento: facDescuento,
-          facObservacion:this.facObserva.value,
+          facIva13:0,
+          facSubt13:0,
+          facIva14: 0,
+          facSubt14: 0,
+          facSubt5: factSubtotal5,
+          facSubt15: factSubtotal15,
+          facIva5: totalFactIva5,
+          facIva15: totalFactIva15,
+          facObservacion: this.facObserva.value,
           facEstado: "PA",
           facTipo: "FACT",
           facAbono: 0,
@@ -357,6 +415,7 @@ export class FacturarPage implements OnInit {
         detalleFactura: formatearCarrito
 
       }
+      console.log('ENVIO FACTURA ', modeloFactura)
       this.cnx.crearFactura(modeloFactura)
       this.carritoProducto = [];
     }
